@@ -5,10 +5,11 @@ const dashBoardStyles = StyleSheet.create({
   /*-------------------------------Profile Container ---------------------------------------*/
   profileContainer: {
     flexDirection: 'row',
+    marginTop: 25,
   },
 
   profileInfoContainer: {
-    transform: [{ translateX: 20 }, { translateY: 60}]
+    transform: [{ translateX: 20 }, { translateY: 70}]
   },
 
   editContainer: {
@@ -78,6 +79,11 @@ const dashBoardStyles = StyleSheet.create({
     marginBottom: 10,
   },
 
+  metricHeading: {
+    marginTop: 30,
+    marginBottom: 10,
+  },
+
   /*-------------------------------Daily Task Container ---------------------------------------*/
   taskHeader: {
     flexDirection: 'row', 
@@ -88,8 +94,6 @@ const dashBoardStyles = StyleSheet.create({
 
   taskProgress: {
     marginLeft: 10, 
-    flex: 1, 
-    textAlign: 'left',
   },
 
   viewLogs: {
@@ -130,6 +134,11 @@ const dashBoardStyles = StyleSheet.create({
     opacity: '100%',
   },
 
+  taskIcon:{
+    width: 50,
+    height: 50,
+  },
+
   /*-------------------------------Feeling and Emotion Container ---------------------------------*/
   feelingContainer: {
     marginTop: 57,
@@ -143,21 +152,22 @@ const dashBoardStyles = StyleSheet.create({
 
   emojiContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
     width: '100%',
     marginLeft: -30,
     paddingLeft: 25,
     paddingRight: 25,
     width: '115%',
-
+    flex: 1,
   },
 
   singleEmojiContainer: {
-    width: '18%',
+    width: '30%',
     marginLeft: -5,
     marginBottom: 60,
-    alignItems: 'center', // Centers content horizontally
-    justifyContent: 'center', // Centers content vertically
+    alignItems: 'center', 
+    justifyContent: 'center', 
     paddingTop: 5,
     paddingBottom: 5,
 
@@ -252,6 +262,8 @@ const dashBoardStyles = StyleSheet.create({
     marginTop: 16,
     position: 'relative',
     marginTop: -40,
+    marginBottom: 30,
+    
   },
   notificationText: {
     color: '#333',

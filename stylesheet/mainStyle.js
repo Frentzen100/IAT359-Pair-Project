@@ -13,51 +13,63 @@ const mainStyles = StyleSheet.create({
   /*------------Typography ---------------*/
 
   heading1: {
-    fontSize: 17,
+    fontSize: 30,
     fontFamily: 'Poppins_600SemiBold',
     color: '#001B62',
   },
 
   heading2: {
-    fontSize: 15,
+    fontSize: 26,
     fontFamily: 'Poppins_500Medium',
     color: '#001B62', 
   },
 
   heading3: {
-    fontSize: 12,
-    fontFamily: 'Poppins_400Regular',
-    color: '#7887B0',
+    fontSize: 20,
+    fontFamily: 'Poppins_600SemiBold',
+    color: '#001B62',
   },
 
   heading4: {
-    fontSize: 1,
+    fontSize: 20,
     fontFamily: 'Poppins_400Regular',
-    color: '#7887B0',
+    color: '#001B62',
     fontWeight: 400
   },
 
-
   paragraph: {
-    fontSize: 12,
+    fontSize: 16,
     fontFamily: 'Poppins_400Regular',
     color: '#001B62',
   },
 
+  accompanyText: {
+    fontSize: 14,
+    fontFamily: 'Poppins_400Regular',
+    color: '#001B62',
+  },
+
+  labelText: {
+    fontSize: 14,
+    fontFamily: 'Poppins_500Medium',
+    color: '#001B62',
+  },
+
+
   whiteParagraph: {
-    fontSize: 12,
+    fontSize: 16,
     fontFamily: 'Poppins_400Regular',
     color: '#F0F2FF', 
   },
 
   caption: {
-    fontSize: 10,
+    fontSize: 14,
     color: '#001B62', 
     fontFamily: 'Poppins_400Regular',
   },
 
   whiteCaption: {
-    fontSize: 10,
+    fontSize: 14,
     color: '#F0F2FF', 
     fontFamily: 'Poppins_400Regular',
 
@@ -87,16 +99,33 @@ const mainStyles = StyleSheet.create({
     width: '100%',
     height: 20,
     borderRadius: 10,
-    backgroundColor: '#EAB44080',
+    backgroundColor: '#92ED6180',
   },
 
   progessBar: {
     position: 'absolute',
-    width: '40%',
+    width: '100%',
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#92ED61',
+    opacity: 1,
+  },
+
+  fullBar2: {
+    position: 'absolute',
+    width: '100%',
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#EAB44080',
+  },
+
+  progessBar2: {
+    position: 'absolute',
+    width: '0%',
     height: 20,
     borderRadius: 10,
     backgroundColor: '#EAB440',
-    opacity: '100%',
+    opacity: 1,
   },
 
   /*----------------------Button Container -------------------*/
@@ -144,8 +173,9 @@ const mainStyles = StyleSheet.create({
     backgroundColor: '#001B62',
     borderRadius: 10,
     justifyContent: 'center',
-    width: '45%', 
-    height: 50
+    width: 150, 
+    height: 50,
+    marginTop: 20,
   },
 
   backButton: {
@@ -209,7 +239,7 @@ const mainStyles = StyleSheet.create({
 
   buttonText2: {
     color: '#FFFFFF',
-    fontSize: 10,
+    fontSize: 16,
     fontWeight: 'regular',
     textAlign: 'center',
     marginRight: 10, 
@@ -226,6 +256,16 @@ const mainStyles = StyleSheet.create({
   backButtonText: {
     color: '#001B62',
     marginLeft: 12,
+  },
+
+  cameraButton: {
+    width: 150, 
+    height: 50,
+    backgroundColor: '#001B62',
+    borderRadius: 10,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+
   },
 
   /*--------------------Daily Container--------------------*/
@@ -276,12 +316,26 @@ const mainStyles = StyleSheet.create({
     transform: [{ translateX: 310}, { translateY: 0}]
   },
 
+  taskIconSize:{
+    width: 25,
+    height: 25,
+    transform: [{ translateX: 4}, { translateY: -4}]
+  },
+
   /*------------Image ---------------*/
 
   topImage: {
     width: '120%',
     marginLeft: -30,
     height: 125,
+  },
+
+  placeholderImage: {
+    width: '100%',
+    height: 200,
+    marginTop: 10,
+    borderColor: '#C0C7E0',
+    borderWidth: 2,
   },
 
   /*----------------Input---------------------*/

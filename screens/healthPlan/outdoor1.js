@@ -11,7 +11,8 @@ import { Ionicons } from '@expo/vector-icons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation
+import { useNavigation, useRoute } from '@react-navigation/native'; 
+
 
 export default function App() {
 
@@ -22,7 +23,10 @@ export default function App() {
     Poppins_700Bold,
   });
 
-  const navigation = useNavigation(); // Initialize the navigation hook
+  const navigation = useNavigation(); 
+  const route = useRoute();
+
+  const exerciseTime = route.params?.exerciseTime || 0;
 
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -68,7 +72,7 @@ export default function App() {
             style={mainStyles.topImage}
       />
       <View style={mainStyles.buttonContainer}>
-        <TouchableOpacity style={mainStyles.backButton} onPress={() => navigation.navigate('HealthPlan')}>
+        <TouchableOpacity style={mainStyles.backButton} onPress={() => navigation.navigate('Home', { screen: 'HealthPlan' })}>
           <View style={mainStyles.buttonContent}>
             <AntDesign name="arrowleft" size={24} color="#7887B0" />
             <Text style={mainStyles.backButtonText}>Back </Text>
@@ -79,15 +83,14 @@ export default function App() {
       <View style={healthPlanStyles.outdoorContainer}>
         <View style={healthPlanStyles.outdoorTopContainer}>
             <Text style={[mainStyles.heading1, healthPlanStyles.date]}>Outdoor Walk</Text>
-            <Text style={mainStyles.heading3}> 12 mins </Text>
+            <Text style={mainStyles.heading3}> {exerciseTime} mins </Text>
         </View>
         <Text style={mainStyles.paragraph}>
             Track your location while walking outdoors and get personalized route suggestions for your exercise. 
         </Text>
 
         <View style={healthPlanStyles.exerciseStatusContainer}>
-            <TouchableOpacity style={mainStyles.button4} onPress={""}>
-            <View style={mainStyles.buttonContent}>
+            <View style={healthPlanStyles.weatherContentContainer}>
                 <Text style={[mainStyles.whiteParagraph, healthPlanStyles.exerciseStatusText]}>
                 {weather.clouds.includes("rain") ? "Bad for Exercise" : "Good for Exercise"}
                 </Text>
@@ -97,7 +100,6 @@ export default function App() {
                 color={weather.clouds.includes("rain") ? "#EF3017" : "#84DD54"}
                 />
             </View>
-            </TouchableOpacity>
         </View>
 
         {weather && (
@@ -114,12 +116,12 @@ export default function App() {
             />
             <View style={healthPlanStyles.weatherInformationContainer}>
                 <View style={healthPlanStyles.weatherTopInformationContainer}>
-                <Text style={mainStyles.heading2}>Today's Weather</Text>
+                <Text style={mainStyles.heading2}>Weather</Text>
                 <Text style={mainStyles.paragraph}>
                     {new Date().toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })}
                 </Text>
                 </View>
-                <Text style={mainStyles.descText}>
+                <Text style={mainStyles.paragraph}>
                 {
                     weather.clouds === "clear" ? "Sunny" :
                     weather.clouds === "few clouds" || weather.clouds === "scattered clouds" ? "Partly Cloudy" :
@@ -128,7 +130,7 @@ export default function App() {
                     weather.clouds 
                 }
                 </Text>
-                <Text style={mainStyles.tempText}>
+                <Text style={mainStyles.paragraph}>
                 {weather.temperature}°C
                 </Text>
             </View>
@@ -156,7 +158,7 @@ export default function App() {
         </View>
 
         <View style={mainStyles.bottomButtonContainer}>
-            <TouchableOpacity style={mainStyles.bottomButton} onPress={() => navigation.navigate('Outdoor2')}>
+            <TouchableOpacity style={mainStyles.bottomButton} onPress={() => navigation.navigate("Outdoor2", { exerciseTime: route.params?.exerciseTime })} >
             <View style={mainStyles.buttonContent}>
                 <Text style={[mainStyles.whiteCaption, healthPlanStyles.exerciseStatusText]}>Begin Walk & Track Location </Text>
                 <Feather name="arrow-right" size={24} color="white" />

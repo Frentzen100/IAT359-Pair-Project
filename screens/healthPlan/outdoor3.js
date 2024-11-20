@@ -9,13 +9,14 @@ import healthPlanStyles from '../../stylesheet/healthPlanStyle';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function Outdoor3() {
-  const navigation = useNavigation();
+  const navigation = useNavigation(); 
   const route = useRoute();
+
+  const exerciseTime = route.params?.exerciseTime || 0;
   
   // Destructure the location and randomLocation passed from Outdoor2
   const { location, randomLocation } = route.params;
   
-  // State to store location in Outdoor3
   const [currentLocation, setCurrentLocation] = useState(null);
 
   useEffect(() => {
@@ -31,8 +32,9 @@ export default function Outdoor3() {
   const handleNavigateToOutdoor4 = () => {
     // Swap locations and pass them to Outdoor3
     navigation.navigate('Outdoor4', {
-      location: randomLocation,  // Pass random location as the user's "current" location
-      randomLocation: location,  // Pass current location as the flag's location
+      location: randomLocation,  
+      randomLocation: location,  
+      exerciseTime
     });
   };
 
@@ -54,7 +56,7 @@ export default function Outdoor3() {
       <View style={healthPlanStyles.outdoorContainer}>
         <View style={healthPlanStyles.outdoorTopContainer}>
           <Text style={[mainStyles.heading1, healthPlanStyles.date]}>Outdoor Walk</Text>
-          <Text style={mainStyles.heading3}>12 mins</Text>
+          <Text style={mainStyles.heading3}> {exerciseTime} mins </Text>
         </View>
         <Text style={mainStyles.paragraph}>
           Great job in reaching the destination. Now you should take a break and go back to the place you started

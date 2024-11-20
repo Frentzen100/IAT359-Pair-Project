@@ -76,6 +76,21 @@ const contactStyles = StyleSheet.create({
     marginLeft: -10,
   },
 
+  inputProfilePhoto:{
+    width: 200,
+    height: 200,
+    margin: 'auto',
+    borderRadius: 100,    
+    overflow: 'hidden',   
+  },
+
+  contactPersonPhoto:{
+    width: 50,
+    height: 50,
+    marginRight: 20,
+    borderRadius: 100,    
+  },
+
 });
 
 export default contactStyles;

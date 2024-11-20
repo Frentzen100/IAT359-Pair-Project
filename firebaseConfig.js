@@ -1,17 +1,25 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import "firebase/firestore";
+// Import the functions you need from the SDKs you need
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-// Firebase configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCTj3eKcSjAVU6tX5TK4hPVG629CEi0rPU",
-  authDomain: "pair-project-bd5cd.firebaseapp.com",
-  projectId: "pair-project-bd5cd",
-  storageBucket: "pair-project-bd5cd.appspot.com",
-  messagingSenderId: "594239186037",
-  appId: "1:594239186037:web:21d2ccc57b40de9a70443c",
-  measurementId: "G-7CEH6VQG8S"
+  apiKey: "AIzaSyAyk43iwwKq7trBaNAmWQ0GZwG5-eOj_MM",
+  authDomain: "myosteoapp.firebaseapp.com",
+  projectId: "myosteoapp",
+  storageBucket: "myosteoapp.firebasestorage.app",
+  messagingSenderId: "1032560309469",
+  appId: "1:1032560309469:web:e0dfdb804ebba4ce565734",
+  measurementId: "G-VXPQDCB8CG",
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Initialize Firebase only if no apps are initialized
+const firebase_app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
+// Get Firestore database object
+const db = getFirestore(firebase_app);
+
+export const firebase_auth = getAuth(firebase_app);
+
+export { firebase_app, db };

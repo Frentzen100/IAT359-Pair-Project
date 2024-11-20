@@ -67,7 +67,8 @@ const healthPlanStyles = StyleSheet.create({
     padding: 10, 
     paddingTop: 20, 
     borderRadius: 8, 
-    
+    borderWidth: 2,
+    marginTop: 20,
     //Android shadow
     elevation: 5, 
     // iOS shadow
@@ -81,15 +82,15 @@ const healthPlanStyles = StyleSheet.create({
     paddingRight: 10, 
   },
   noteTitle: {
-    fontSize: 12, 
-    marginBottom: 20, 
+    fontSize: 20, 
+    marginBottom: 10, 
   },
   noteSubtitle: {
-    fontSize: 10, 
+    fontSize: 16, 
     marginBottom: 4,
   },
   noteInstructions: {
-    fontSize: 11,
+    fontSize: 14,
   },
   imageContainer: {
     width: 100,
@@ -101,6 +102,37 @@ const healthPlanStyles = StyleSheet.create({
     width: '100%',
     height: '100%', 
     resizeMode: 'contain', 
+  },
+
+  noMedication:{
+    marginTop: 50,
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#001B6280',
+    marginLeft: -10,
+    marginBottom: 50,
+  },
+
+  editButton:{
+    textAlign: 'center',   
+    marginBottom: 20, 
+  },
+
+  previewContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  addMedicationIcon:{
+    marginLeft: 15,
+  },
+
+  learnExerciseButton:{
+    transform: [{ translateX: 210 }, { translateY: -12.5 }],
+    height: 40,
+    width: 125,
+    position: 'absolute'
   },
 
   /*-----------------------Sub-Section: Outdoor -------------------------*/
@@ -117,7 +149,7 @@ const healthPlanStyles = StyleSheet.create({
   },
 
   exerciseStatusContainer:{
-    marginTop: 50,
+    marginTop: 30,
     marginLeft: 10,
   },
 
@@ -142,7 +174,6 @@ const healthPlanStyles = StyleSheet.create({
   /*-----------------------Sub-Section: Weather -------------------------*/
 
   weatherStatusContainer: {
-    marginTop: -125,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F1F5F9',
@@ -165,6 +196,18 @@ const healthPlanStyles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 4,
   },
+
+  weatherContentContainer:{
+      backgroundColor: '#001B62',
+      width: '60%',
+      textAlign: 'center',
+      borderRadius: 20,
+      flexDirection: 'row',
+      height: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+
 
     /*-----------------------Sub-Section: Map -------------------------*/
 

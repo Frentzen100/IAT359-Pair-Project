@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import { Ionicons } from 'react-native-vector-icons';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation, useRoute } from '@react-navigation/native'; 
 import AntDesign from '@expo/vector-icons/AntDesign';
 import mainStyles from '../../stylesheet/mainStyle';
 import healthPlanStyles from '../../stylesheet/healthPlanStyle';
@@ -13,7 +13,10 @@ export default function Outdoor2() {
   const [randomLocation, setRandomLocation] = useState(null); // Flag's random location
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation(); 
+  const route = useRoute();
+
+  const exerciseTime = route.params?.exerciseTime || 0;
 
   useEffect(() => {
     (async () => {
@@ -62,6 +65,7 @@ export default function Outdoor2() {
     navigation.navigate('Outdoor3', {
       location: randomLocation,  // Pass random location as the user's "current" location
       randomLocation: location,  // Pass current location as the flag's location
+      exerciseTime
     });
   };
 
@@ -82,8 +86,8 @@ export default function Outdoor2() {
       <View style={healthPlanStyles.outdoorContainer}>
         <View style={healthPlanStyles.outdoorTopContainer}>
           <Text style={[mainStyles.heading1, healthPlanStyles.date]}>Outdoor Walk</Text>
-          <Text style={mainStyles.heading3}>12 mins</Text>
-        </View>
+          <Text style={mainStyles.heading3}> {exerciseTime} mins </Text>
+          </View>
         <Text style={mainStyles.paragraph}>
           Track your location while walking outdoors and get personalized route suggestions for your exercise. 
         </Text>

@@ -11,6 +11,8 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 export default function Outdoor3() {
   const navigation = useNavigation();
   const route = useRoute();
+
+  const exerciseTime = route.params?.exerciseTime || 0;
   
   // Destructure the location and randomLocation passed from Outdoor2
   const { location, randomLocation } = route.params;
@@ -46,7 +48,7 @@ export default function Outdoor3() {
       <View style={healthPlanStyles.outdoorContainer}>
         <View style={healthPlanStyles.outdoorTopContainer}>
           <Text style={[mainStyles.heading1, healthPlanStyles.date]}>Outdoor Walk</Text>
-          <Text style={mainStyles.heading3}>12 mins</Text>
+          <Text style={mainStyles.heading3}> {exerciseTime} mins </Text>
         </View>
         <Text style={mainStyles.paragraph}>
           Congratulation! You finish the outdoor walking exercise. Your record will be added to the dashboard!
@@ -66,7 +68,7 @@ export default function Outdoor3() {
         <Text>Loading...</Text>
       )}
 
-      <TouchableOpacity style={mainStyles.bottomButton2} onPress={() => navigation.navigate('Home', { screen: 'Dashboard' })}>
+      <TouchableOpacity style={mainStyles.bottomButton2} onPress={() => navigation.navigate('Home', { screen: 'Dashboard' , params: { exerciseIncrement: exerciseTime}},)}>
         <Text style={[mainStyles.buttonText3]}>Finish Exercise</Text>
       </TouchableOpacity>
 
