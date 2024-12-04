@@ -16,11 +16,10 @@ export default function Outdoor3() {
   
   // Destructure the location and randomLocation passed from Outdoor2
   const { location, randomLocation } = route.params;
-  
   const [currentLocation, setCurrentLocation] = useState(null);
 
   useEffect(() => {
-    // Set the location after the locations are swapped
+    //Set the location after the locations are swapped
     setCurrentLocation({
       latitude: randomLocation.latitude,
       longitude: randomLocation.longitude,
@@ -29,8 +28,8 @@ export default function Outdoor3() {
     });
   }, [randomLocation]);
 
+  //This function swap locations and pass them to Outdoor3
   const handleNavigateToOutdoor4 = () => {
-    // Swap locations and pass them to Outdoor3
     navigation.navigate('Outdoor4', {
       location: randomLocation,  
       randomLocation: location,  

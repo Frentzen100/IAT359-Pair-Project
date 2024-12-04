@@ -1,34 +1,43 @@
 import { Text, Image, ScrollView, View, Modal, TouchableOpacity } from 'react-native';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold } from '@expo-google-fonts/poppins';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import dashboardStyles from '../../stylesheet/dashboardStyle';
+import healthPlanStyles from "../../stylesheet/healthPlanStyle";
 import mainStyles from '../../stylesheet/mainStyle';
 
 import ProgressBar from '../../component/progressBar'; 
 import Notification from '../../component/notification';
-
-import { MaterialIcons } from '@expo/vector-icons'; 
-import Entypo from '@expo/vector-icons/Entypo';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import Fontisto from '@expo/vector-icons/Fontisto';
-import Octicons from '@expo/vector-icons/Octicons';
 
 import { useNavigation, useRoute } from '@react-navigation/native'; 
 
 export default function Dashboard() {
   const navigation = useNavigation();
   const route = useRoute();
+  const animation = useRef(null);
 
+  // States for user information
   const [firstName, setFirstName] = useState(null);
   const [age, setAge] = useState(null);
   const [weight, setWeight] = useState(null);
-  const [height, setHeight] = useState(null);
-  const [heightUnit, setHeightUnit] = useState('cm');
   const [weightUnit, setWeightUnit] = useState('kg');
   const [gender, setGender] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState(null);
+
+  // States for health metrics
+  const [calciumIntake, setCalciumIntake] = useState(0);
+  const [proteinIntake, setProteinIntake] = useState(0);
+  const [vitaminDIntake, setVitaminDIntake] = useState(0);
+
+  const [calciumProgress, setCalciumProgress] = useState(0);
+  const [proteinProgress, setProteinProgress] = useState(0);
+  const [vitaminDProgress, setVitaminDProgress] = useState(0);
+
+  const [exerciseProgress, setExerciseProgress] = useState(0);
+  const [exerciseGoal, setExerciseGoal] = useState(30);
+
+  const [timeLeft, setTimeLeft] = useState('');
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -37,330 +46,226 @@ export default function Dashboard() {
     Poppins_700Bold,
   });
 
-  const [timeLeft, setTimeLeft] = useState('');
-
   useEffect(() => {
-    const calculateTimeLeft = () => {
-      const now = new Date();
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59, 999); // Set target time to 11:59:59 PM
-  
-      const difference = endOfDay - now;
-  
-      if (difference > 0) {
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / (1000 * 60)) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
-        setTimeLeft(`${hours}h   ${minutes}m   ${seconds}s`);
-      } else {
-        setTimeLeft("0h   0m   0s"); // If it's past 11:59:59 PM
-      }
-    };
-
-    const getUserDataFromStorage = async () => {
+    const loadInitialProgress = async () => {
       try {
-        const name = await AsyncStorage.getItem('@user_name');
-        const userAge = await AsyncStorage.getItem('@user_age');
-        const userWeight = await AsyncStorage.getItem('@user_weight');
-        const userHeight = await AsyncStorage.getItem('@user_height');
-        const userHeightUnit = await AsyncStorage.getItem('@user_height_unit');
-        const userWeightUnit = await AsyncStorage.getItem('@user_weight_unit');
-        const userGender = await AsyncStorage.getItem('@user_gender');
-  
-        if (name) setFirstName(name);
-        if (userAge) setAge(userAge);
-        if (userWeight) setWeight(userWeight);
-        if (userHeight) setHeight(userHeight);
-        if (userHeightUnit) setHeightUnit(userHeightUnit);
-        if (userWeightUnit) setWeightUnit(userWeightUnit);
-        if (userGender) setGender(userGender);
-      } catch (e) {
-        console.error('Failed to load user data:', e);
+        const storedProgress = await AsyncStorage.getItem('@exerciseProgress');
+        const initialProgress = storedProgress ? parseInt(storedProgress, 10) : 0;
+        setExerciseProgress(initialProgress); // Load persisted progress
+      } catch (error) {
+        console.error('Error loading initial progress:', error);
       }
     };
   
-    getUserDataFromStorage();
+    loadInitialProgress();
+  }, []); // Runs once when the component mounts
   
-    // Increment exerciseProgress if route.params?.exerciseIncrement is present
+  useEffect(() => {
     if (route.params?.exerciseIncrement) {
       setExerciseProgress((prevProgress) => {
         const newProgress = prevProgress + route.params.exerciseIncrement;
-        return newProgress > exerciseGoal ? exerciseGoal : newProgress; // Limit progress to exerciseGoal
+        console.log('Previous Progress:', prevProgress);
+        console.log('Increment:', route.params.exerciseIncrement);
+        console.log('New Progress:', newProgress);
+  
+        // Save updated progress to AsyncStorage
+        AsyncStorage.setItem('@exerciseProgress', newProgress.toString()).catch((error) =>
+          console.error('Error saving progress:', error)
+        );
+  
+        // Cap the progress at the goal
+        return newProgress > exerciseGoal ? exerciseGoal : newProgress;
       });
   
-      // Clear the parameter after the increment
+      // Clear the parameter to prevent repeated updates
       navigation.setParams({ exerciseIncrement: null });
     }
-  
-    // Start the timer to update the countdown
-    const timer = setInterval(calculateTimeLeft, 1000);
-  
-    // Clean up the timer on component unmount
-    return () => clearInterval(timer);
   }, [route.params?.exerciseIncrement]);
 
-  const getCurrentDate = () => {
-    const date = new Date();
-    const options = { weekday: 'long', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString(undefined, options); // Uses the default locale
+
+  // Calculate time left in the day
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
+    const difference = endOfDay - now;
+
+    if (difference > 0) {
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / (1000 * 60)) % 60);
+      const seconds = Math.floor((difference / 1000) % 60);
+      setTimeLeft(`${hours}h   ${minutes}m   ${seconds}s`);
+    } else {
+      setTimeLeft("0h   0m   0s");
+    }
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const openModal = () => setModalVisible(true);
-  const closeModal = () => setModalVisible(false);
-
-  /*----------------------Daily Task -----------------------------------*/
-
-   // Calculate calcium intake
-   const calculateCalciumIntake = (age, gender) => {
-    let calciumIntake = '';
+  // Function to calculate intakes
+  const calculateCalciumIntake = (age, gender) => {
+    if (!age || !gender) return 0;
     if (gender === 'Female') {
-      if (age >= 19 && age <= 50) calciumIntake = 1000;
-      else if (age > 50) calciumIntake = 1200;
+      return age > 50 ? 1200 : 1000;
     } else if (gender === 'Male') {
-      if (age >= 19 && age <= 70) calciumIntake = 1000;
-      else if (age > 70) calciumIntake = 1200;
+      return age > 70 ? 1200 : 1000;
     }
-    return calciumIntake;
+    return 1000;
   };
 
-  // Calculate protein intake
   const calculateProteinIntake = (weight, weightUnit) => {
-    let proteinIntake = 0;
-    if (weightUnit === 'kg') {
-      proteinIntake = weight * 0.8;
-    } else if (weightUnit === 'lbs') {
-      proteinIntake = (weight * 0.453592) * 0.8;
-    }
-    return Math.round(proteinIntake);
+    if (!weight || !weightUnit) return 0;
+    const weightInKg = weightUnit === 'kg' ? weight : weight * 0.453592;
+    return Math.round(weightInKg * 0.8);
   };
 
-  // Calculate Vitamin D intake
   const calculateVitaminDIntake = (age) => {
     return age >= 70 ? 600 : 800;
   };
 
-  const calciumIntake = calculateCalciumIntake(Number(age), gender);
-  const proteinIntake = calculateProteinIntake(Number(weight), weightUnit);
-  const vitaminDIntake = calculateVitaminDIntake(Number(age));
+  // Fetch user data from AsyncStorage
+  const fetchUserData = async () => {
+    try {
+      const name = await AsyncStorage.getItem('@user_name');
+      const userAge = await AsyncStorage.getItem('@user_age');
+      const userWeight = await AsyncStorage.getItem('@user_weight');
+      const userWeightUnit = await AsyncStorage.getItem('@user_weight_unit');
+      const userGender = await AsyncStorage.getItem('@user_gender');
+      const savedPhoto = await AsyncStorage.getItem('@profile_photo');
 
-  const [exerciseProgress, setExerciseProgress] = useState(0);
-  const [exerciseGoal, setExerciseGoal] = useState(30);
-  const exerciseProgressPercentage = (exerciseProgress / exerciseGoal) * 100; 
+      if (name) setFirstName(name);
+      if (userAge) setAge(parseInt(userAge, 10));
+      if (userWeight) setWeight(parseFloat(userWeight));
+      if (userWeightUnit) setWeightUnit(userWeightUnit);
+      if (userGender) setGender(userGender);
+      if (savedPhoto) setProfilePhoto(JSON.parse(savedPhoto).uri);
 
-  const [calciumProgress, setCalciumProgress] = useState(0);
-  const calciumProgressPercentage = (calciumProgress / calciumIntake) * 100;
-
-  const [vitaminDProgress, setVitaminDProgress] = useState(0);
-  const vitaminDProgressPercentage = (vitaminDProgress / vitaminDIntake) * 100;
-
-  const [proteinProgress, setProteinProgress] = useState(0);
-  const proteinProgressPercentage = (proteinProgress / proteinIntake) * 100;
-
-/*---------------------Emoji----------------------------------------*/
-
-  const [showEmojiMessage, setShowEmojiMessage] = useState(true);
-  const [dontShowEmojiAgain, setDontShowEmojiAgain] = useState(false);
-
-  const [selectedEmoji, setSelectedEmoji] = useState(null);
-  const emojis = [
-    { name: 'Drained', icon: <Ionicons name="sad-outline" size={60} color="#001B6280" />, label: 'Drained' },
-    { name: 'Tired', icon: <MaterialCommunityIcons name="emoticon-sad-outline" size={60} color="#001B6280" />, label: 'Tired' },
-    { name: 'Okay', icon: <Fontisto name="neutral" size={50} color="#001B6280" />, label: 'Okay' },
-    { name: 'Active', icon: <MaterialCommunityIcons name="emoticon-happy-outline" size={60} color="#001B6280" />, label: 'Active' },
-    { name: 'Energized', icon: <Ionicons name="happy-outline" size={60} color="#001B6280" />, label: 'Energize' }
-  ];
-
-  const handleEmojiClick = (emojiName) => {
-    if (selectedEmoji === emojiName) {
-      setSelectedEmoji(null); 
-      setShowEmojiMessage(false);
-    } else {
-      setSelectedEmoji(emojiName);
-      setShowEmojiMessage(true); 
+      console.log('Age:', userAge, 'Weight:', userWeight, 'Gender:', userGender);
+    } catch (e) {
+      console.error('Failed to load user data:', e);
     }
-  }
-
-  const handleEmojiCloseMessage = () => {
-    setShowEmojiMessage(false);
   };
 
-  const toggleDontShowEmojiAgain = () => {
-    setDontShowEmojiAgain((prev) => !prev);
+  useEffect(() => {
+    fetchUserData();
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Recalculate intakes when user data changes
+  useEffect(() => {
+    if (age && weight && gender) {
+      const calcium = calculateCalciumIntake(Number(age), gender);
+      const protein = calculateProteinIntake(Number(weight), weightUnit);
+      const vitaminD = calculateVitaminDIntake(Number(age));
+      const calciumTarget = calculateCalciumIntake(age, gender);
+      const proteinTarget = calculateProteinIntake(weight, weightUnit);
+      const vitaminDTarget = calculateVitaminDIntake(age);
+
+
+      setCalciumIntake(calcium);
+      setProteinIntake(protein);
+      setVitaminDIntake(vitaminD);
+
+      console.log('Calcium Intake:', calcium, 'Protein Intake:', protein);
+
+      setCalciumProgress((prev) => Math.min(prev, calciumTarget)); // Example increment
+      setProteinProgress((prev) => Math.min(prev, proteinTarget)); // Example increment
+      setVitaminDProgress((prev) => Math.min(prev, vitaminDTarget)); // Example increment
+    }
+  }, [age, weight, gender, weightUnit]);
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    const options = { weekday: 'long', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
   };
 
-  /*---------------------------------Pain----------------------------------------*/
-  
-  const [selectedPain, setSelectedPain] = useState([]);
-  const [showPainMessage, setShowPainMessage] = useState(true);
-  const [dontShowPainAgain, setDontShowPainAgain] = useState(false);
-  
-  const painAreas = [
-    { name: 'Back', image: require('../../assets/icons/pain.png'), label: 'Back' },
-    { name: 'Knees', image: require('../../assets/icons/pain.png'), label: 'Knees' },
-    { name: 'Hips', image: require('../../assets/icons/pain.png'), label: 'Hips' },
-    { name: 'Wrists', image: require('../../assets/icons/pain.png'), label: 'Wrists' },
-    { name: 'Neck', image: require('../../assets/icons/pain.png'), label: 'Neck' },
-    { name: 'Pain Free', image: require('../../assets/icons/pain.png'), label: 'Pain Free' },
-  ];
+  const fetchHealthMetrics = async () => {
+    try {
+      const storedData = await AsyncStorage.getItem('dailyFoodLog');
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
 
-  const handleSelection = (area) => {
-    setSelectedPain((prev) => {
-      if (!Array.isArray(prev)) {
-        prev = []; // Fallback to an empty array if the previous state is invalid
+        // Extract cumulative totals for nutrients
+        const totalCalcium = parsedData.reduce((sum, item) => sum + (item.calcium || 0), 0);
+        const totalVitaminD = parsedData.reduce((sum, item) => sum + (item.vitaminD || 0), 0);
+        const totalProtein = parsedData.reduce((sum, item) => sum + (item.protein || 0), 0);
+
+        // Update state
+        setCalciumProgress(totalCalcium);
+        setVitaminDProgress(totalVitaminD);
+        setProteinProgress(totalProtein);
       }
-      if (prev.includes(area)) {
-        // Remove the area if it's already selected
-        return prev.filter((item) => item !== area);
-      } else {
-        // Add the area to the selection
-        return [...prev, area];
-      }
-    });
-    setShowPainMessage(true); // Show notification message
+    } catch (error) {
+      console.error('Failed to fetch health metrics:', error);
+    }
   };
+
+  // UseEffect to initialize data on mount
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const calcium = await AsyncStorage.getItem('@calciumProgress');
+        const vitaminD = await AsyncStorage.getItem('@vitaminDProgress');
+        const protein = await AsyncStorage.getItem('@proteinProgress');
   
-const handlePainCloseMessage = () => {
-  setShowPainMessage(false);
-};
-
-const toggleDontShowPainAgain = () => {
-  setDontShowPainAgain((prev) => !prev);
-};
-
+        setCalciumProgress(calcium ? JSON.parse(calcium) : 0);
+        setVitaminDProgress(vitaminD ? JSON.parse(vitaminD) : 0);
+        setProteinProgress(protein ? JSON.parse(protein) : 0);
+  
+        console.log('Fetched nutrient progress from AsyncStorage.');
+      } catch (error) {
+        console.error('Failed to fetch nutrient progress:', error);
+      }
+    };
+  
+    fetchProgress();
+  }, []);
 
   return (
     <ScrollView style={mainStyles.container}>
-      {/*Profile Card*/}
+
+      {/* Profile Card */}
       <View style={dashboardStyles.profileContainer}>
-       <Image
-        source={require('../../assets/icons/profile.png')} 
-        style={mainStyles.heroIcon}
-      />
+        {profilePhoto ? (
+          <Image
+            source={{ uri: profilePhoto }}
+            style={[mainStyles.heroIcon, { borderRadius: 100 }]} // Profile photo
+          />
+        ) : (
+          <Image
+            source={require('../../assets/icons/profile.png')} // Default profile icon
+            style={mainStyles.heroIcon}
+          />
+        )}
         <View style={dashboardStyles.profileInfoContainer}>
           <Text style={mainStyles.heading3}>Welcome, {firstName}!</Text>
+          <Text style={[mainStyles.labelText, dashboardStyles.date]}>{getCurrentDate()}</Text>
         </View>
       </View>
 
-      <View style={dashboardStyles.dashboardContainer}>
-        <View style={dashboardStyles.dashboardHeadingContainer}>
-          <Text style={mainStyles.heading3}>Today’s Health Dashboard</Text>
-          <TouchableOpacity onPress={openModal}>
-              <MaterialCommunityIcons
-                name="information"
-                size={30}
-                color="black"
-                style={dashboardStyles.infoIcon}
-              />
-            </TouchableOpacity>
-        </View>
-
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={closeModal}
+      {/* View Log Button */}
+      <View style={mainStyles.buttonContainer}>
+        <TouchableOpacity
+          style={[mainStyles.button2, dashboardStyles.dailyLogButton]}
+          onPress={() => navigation.navigate('DailyLog')}
         >
-          <View style={dashboardStyles.modalOverlay}>
-            <View style={dashboardStyles.modalContent}>
-              <TouchableOpacity onPress={closeModal} style={dashboardStyles.closeButton}>
-                <Text style={dashboardStyles.closeButtonText}>×</Text>
-              </TouchableOpacity>
-              <Text style={dashboardStyles.modalText}>
-                Time left to refresh your dashboard and get your overall health result
-              </Text>
-              <Text style={dashboardStyles.modalTextCountdown}>{timeLeft}</Text>
-            </View>
+          <View style={mainStyles.buttonContent}>
+            <Text style={mainStyles.buttonText}>View Today's Log</Text>
           </View>
-        </Modal>
-
-        <Text style={[mainStyles.labelText, dashboardStyles.date]}>{getCurrentDate()}</Text>
+        </TouchableOpacity>
       </View>
 
-      <Text style={[mainStyles.heading2, dashboardStyles.metricHeading]}>Your Health Metrics </Text>
-      <Text style={mainStyles.paragraph}> Track your health metrics and stay in the green bar for optimal bone health.</Text>
+      {/* Health Metrics */}
+      <Text style={[mainStyles.heading2, dashboardStyles.metricHeading]}>Health Metrics</Text>
+      <Text style={mainStyles.paragraph}>
+        Track your health metrics and stay in the green bar for optimal bone health.
+      </Text>
 
       <ProgressBar progress={exerciseProgress} goal={exerciseGoal} icon="run" taskName="Exercise" />
-      <ProgressBar progress={calciumProgress} goal={calciumIntake} taskName="Calcium Intake" />
-      <ProgressBar progress={vitaminDProgress} goal={vitaminDIntake} taskName="Vitamin D Intake" />
-      <ProgressBar progress={proteinProgress} goal={proteinIntake} taskName="Protein Intake" />
-
-      {/*Feeling and Emoji*/}
-      <View style={dashboardStyles.feelingContainer}>
-        <Text style={[mainStyles.heading1, dashboardStyles.feelingTitle]}>
-          How are you feeling today?
-        </Text>
-        <Text style={[mainStyles.paragraph, dashboardStyles.feelingParagraph]}>
-          Tap the emotion that best matches your overall mood or feeling today.
-        </Text>
-      </View>
-      <View style={dashboardStyles.emojiContainer}>
-        {emojis.map((emoji, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              dashboardStyles.singleEmojiContainer,
-              selectedEmoji === emoji.name && dashboardStyles.selectedEmoji // Apply styles for selected emoji
-            ]}
-            onPress={() => handleEmojiClick(emoji.name)}
-          >
-            <View style={[dashboardStyles.emojiIconContainer, selectedEmoji === emoji.name && dashboardStyles.selectedEmojiIcon]}>
-              {emoji.icon}
-            </View>
-            <Text style={[mainStyles.caption, dashboardStyles.emojiLabel]}>
-              {emoji.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      <Notification 
-        isVisible={!!selectedEmoji && showEmojiMessage} 
-        messageType="emoji" 
-        selectedItem={selectedEmoji} // Single select string
-        items={emojis} // Full list of emojis
-        closeHandler={handleEmojiCloseMessage} 
-        toggleHandler={toggleDontShowEmojiAgain} 
-        dontShowAgain={dontShowEmojiAgain} 
-        label="Feeling Selected" 
-      />
-      
-       {/* Pain Selection Section */}
-       <View style={dashboardStyles.painGridContainer}>
-        <Text style={[mainStyles.heading1, dashboardStyles.feelingTitle]}>
-          Where are you feeling pain today?
-        </Text>
-        <Text style={[mainStyles.paragraph, dashboardStyles.feelingParagraph]}>
-          Select the areas where you’re experiencing pain.
-        </Text>
-
-        {/* Pain Areas */}
-        {painAreas.map((painArea, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              dashboardStyles.painSelectionContainer,
-              selectedPain.includes(painArea.name) ? dashboardStyles.selectedPain : {}, // Highlight if selected
-            ]}
-            onPress={() => handleSelection(painArea.name)}
-          >
-            <Image source={painArea.image} style={dashboardStyles.painImage} />
-            <Text style={[mainStyles.caption, dashboardStyles.painLabel]}>
-              {painArea.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      <Notification 
-        isVisible={selectedPain.length > 0 && showPainMessage} 
-        messageType="pain" 
-        selectedItem={selectedPain} // Pass the array of selected pains
-        items={painAreas} // Pass the full list of pain areas
-        closeHandler={handlePainCloseMessage} 
-        toggleHandler={toggleDontShowPainAgain} 
-        dontShowAgain={dontShowPainAgain} 
-        label="Pain Areas Selected" 
-      />
+      <ProgressBar progress={calciumProgress} goal={calciumIntake || 1} taskName="Calcium Intake" />
+      <ProgressBar progress={vitaminDProgress} goal={vitaminDIntake || 1} taskName="Vitamin D Intake" />
+      <ProgressBar progress={proteinProgress} goal={proteinIntake || 1} taskName="Protein Intake" />
     </ScrollView>
   );
 }

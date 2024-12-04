@@ -9,6 +9,8 @@ import { createAccountStyle } from '../../stylesheet/authenticationStyles';
 import { confirmationStyle } from '../../stylesheet/authenticationStyles';
 import { Ionicons } from '@expo/vector-icons';
 
+import mainStyles from '../../stylesheet/mainStyle';
+
 export default function SignUpScreen({ navigation }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,6 +20,7 @@ export default function SignUpScreen({ navigation }) {
   const [privacyModalVisible, setPrivacyModalVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
+  //This function saves the user's name
   const saveNameToStorage = async (name) => {
     try {
       await AsyncStorage.setItem('@user_name', name);
@@ -26,6 +29,7 @@ export default function SignUpScreen({ navigation }) {
     }
   };
 
+  //his function handles user sign-up and then create a Firebase user,
   const handleSignUp = async () => {
     if (!email || !password) {
       alert('Please fill out all fields.');
@@ -48,9 +52,10 @@ export default function SignUpScreen({ navigation }) {
     }
   };
 
+  //This function closes the confirmation modal and navigates to the "UserInfo" screen.
   const handleContinue = () => {
     setModalVisible(false);
-    navigation.navigate('UserInfo'); // Navigate to UserInfo after closing the modal
+    navigation.navigate('UserInfo'); 
   };
 
   return (
@@ -132,10 +137,24 @@ export default function SignUpScreen({ navigation }) {
         <View style={createAccountStyle.modalContainer}>
           <ScrollView style={createAccountStyle.modalContent}>
             <Text style={createAccountStyle.modalTitle}>Terms of Services</Text>
-            <Text style={createAccountStyle.paragraph}>
-              {/* Replace this with your Terms of Services content */}
-              This is where the Terms of Services content goes.
+            <Text style={mainStyles.paragraph}>By using this app, you agree to the following terms:</Text>
+            <Text></Text><Text></Text>
+            <Text style={mainStyles.paragraph}>
+              1. <Text style={mainStyles.boldText}>Purpose:</Text> This app provides general information and tools related to osteoporosis management and is not a substitute for professional medical advice, diagnosis, or treatment.
             </Text>
+            <Text></Text>
+            <Text style={mainStyles.paragraph}>
+              2. <Text style={mainStyles.boldText}>Medical Disclaimer:</Text> Always consult your doctor or healthcare provider before making decisions about your health.
+            </Text>
+            <Text></Text>
+            <Text style={mainStyles.paragraph}>
+              3. <Text style={mainStyles.boldText}>User Responsibility:</Text> You are responsible for how you use the information provided by this app. The app is not liable for any actions you take based on its content.
+            </Text>
+            <Text></Text>
+            <Text style={mainStyles.paragraph}>
+              4. <Text style={mainStyles.boldText}>Data Privacy:</Text> Your data will be handled according to our Privacy Policy. We do not share your personal information without your consent.
+            </Text>
+            <Text></Text>
             <TouchableOpacity
               style={createAccountStyle.closeButton}
               onPress={() => setTermsModalVisible(false)}
@@ -156,10 +175,29 @@ export default function SignUpScreen({ navigation }) {
         <View style={createAccountStyle.modalContainer}>
           <ScrollView style={createAccountStyle.modalContent}>
             <Text style={createAccountStyle.modalTitle}>Privacy Policy</Text>
-            <Text style={createAccountStyle.modalParagraph}>
-              {/* Replace this with your Terms of Services content */}
-              This is where the Privacy Policy content goes.
+            
+            <Text style={mainStyles.paragraph}>By using this app, you agree to the following terms:</Text>
+            <Text></Text><Text></Text>
+            <Text style={mainStyles.paragraph}>
+              1. <Text style={mainStyles.boldText}>Data Collection:</Text> We may collect personal information (e.g., age, weight, and health preferences) to provide personalized recommendations.
             </Text>
+            <Text></Text>
+            <Text style={mainStyles.paragraph}>
+              2. <Text style={mainStyles.boldText}>Data Usage:</Text> Your information is used to improve your experience in the app. We do not sell your data to third parties.
+            </Text>
+            <Text></Text>
+            <Text style={mainStyles.paragraph}>
+              3. <Text style={mainStyles.boldText}>Data Security:</Text> We use industry-standard measures to protect your data. However, no system is completely secure, and we cannot guarantee absolute security.
+            </Text>
+            <Text></Text>
+            <Text style={mainStyles.paragraph}>
+              4. <Text style={mainStyles.boldText}>Third-Party Services:</Text> The app may use third-party tools (e.g., analytics) which adhere to their own privacy policies.
+            </Text>
+            <Text></Text>
+            <Text style={mainStyles.paragraph}>
+              5. <Text style={mainStyles.boldText}>Your Control:</Text> You can request to access, modify, or delete your data at any time.
+            </Text>
+            <Text></Text>
             <TouchableOpacity
               style={createAccountStyle.closeButton}
               onPress={() => setPrivacyModalVisible(false)}

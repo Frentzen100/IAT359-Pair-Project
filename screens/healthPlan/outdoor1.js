@@ -26,13 +26,13 @@ export default function App() {
   const navigation = useNavigation(); 
   const route = useRoute();
 
-  const exerciseTime = route.params?.exerciseTime || 0;
+  const exerciseTime = 15;
 
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch weather data from GeoNames API
+  //This function fetch weather data from GeoNames API
   const fetchWeather = async () => {
     console.log(username);
     try {
@@ -82,11 +82,19 @@ export default function App() {
     
       <View style={healthPlanStyles.outdoorContainer}>
         <View style={healthPlanStyles.outdoorTopContainer}>
-            <Text style={[mainStyles.heading1, healthPlanStyles.date]}>Outdoor Walk</Text>
-            <Text style={mainStyles.heading3}> {exerciseTime} mins </Text>
+            <Text style={[mainStyles.heading1, healthPlanStyles.date]}>Short Walk</Text>
+        </View>
+        <View style={healthPlanStyles.indoorExerciseTag}>
+            <Text style={[mainStyles.caption, healthPlanStyles.exerciseType]}> Outdoors</Text>
+            <View style={healthPlanStyles.durationContainer}>
+                <AntDesign name="clockcircle" size={14} color="#001B62" />
+                <Text style={[mainStyles.caption, healthPlanStyles.exerciseTotalTime]}>
+                15 mins
+                </Text>
+            </View>
         </View>
         <Text style={mainStyles.paragraph}>
-            Track your location while walking outdoors and get personalized route suggestions for your exercise. 
+          Walking is a weight-bearing exercise that improves bone density in the hips and femoral neck. Start with nearby routes with proper. 
         </Text>
 
         <View style={healthPlanStyles.exerciseStatusContainer}>
@@ -116,52 +124,50 @@ export default function App() {
             />
             <View style={healthPlanStyles.weatherInformationContainer}>
                 <View style={healthPlanStyles.weatherTopInformationContainer}>
-                <Text style={mainStyles.heading2}>Weather</Text>
-                <Text style={mainStyles.paragraph}>
-                    {new Date().toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })}
-                </Text>
+                  <Text style={mainStyles.heading3}>Today's Weather</Text>
                 </View>
-                <Text style={mainStyles.paragraph}>
+                <Text style={[mainStyles.paragraph, healthPlanStyles.typeofWeatherText]}>
                 {
                     weather.clouds === "clear" ? "Sunny" :
                     weather.clouds === "few clouds" || weather.clouds === "scattered clouds" ? "Partly Cloudy" :
                     weather.clouds === "overcast" ? "Cloudy" :
                     weather.clouds.includes("rain") ? "Rainy" :
                     weather.clouds 
-                }
+                },  {weather.temperature}°C
                 </Text>
                 <Text style={mainStyles.paragraph}>
-                {weather.temperature}°C
+                  {new Date().toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })}
                 </Text>
             </View>
             </View>
         )}
 
+        <Text style={[mainStyles.heading3, healthPlanStyles.exercisePreviewText]}>Exercise Preview</Text>
 
-        <View style={healthPlanStyles.instructionContainer}>
-            <Text style={[mainStyles.heading1,healthPlanStyles.instructionTitle]}>Instructions</Text>
-            <Text style={mainStyles.paragraph}>
-            Walk for 6 minutes, then take a short break. After resting, walk back for another 6 minutes.      
-            </Text>
-        </View>
-
-        <View style={healthPlanStyles.postureContainer}>
-            <Text style={mainStyles.heading1}>
-            Check Your Posture
-            </Text>
-            <View style={mainStyles.listContainer}>
-            <Text style={[mainStyles.paragraph, mainStyles.bulletItem]}>• Stand tall with feet forward.</Text>
-            <Text style={[mainStyles.paragraph, mainStyles.bulletItem]}>• Neck aligned with your shoulders. </Text>
-            <Text style={[mainStyles.paragraph, mainStyles.bulletItem]}>• Keep your head up.</Text>
-            <Text style={[mainStyles.paragraph, mainStyles.bulletItem]}>• Move forward smoothly without swaying your hips side-to-side..</Text>
+         <View style={healthPlanStyles.outdoorInstructionContainer}>
+            <Text style={healthPlanStyles.instructionTitle3}>1. Walk to your suggested destination</Text>
+            <View style={healthPlanStyles.durationContainer2}>
+                <AntDesign name="clockcircle" size={14} color="#001B62" />
+                <Text style={[mainStyles.caption, healthPlanStyles.exerciseTotalTime]}>
+                15 mins
+                </Text>
             </View>
         </View>
 
-        <View style={mainStyles.bottomButtonContainer}>
-            <TouchableOpacity style={mainStyles.bottomButton} onPress={() => navigation.navigate("Outdoor2", { exerciseTime: route.params?.exerciseTime })} >
-            <View style={mainStyles.buttonContent}>
-                <Text style={[mainStyles.whiteCaption, healthPlanStyles.exerciseStatusText]}>Begin Walk & Track Location </Text>
-                <Feather name="arrow-right" size={24} color="white" />
+        <View style={healthPlanStyles.outdoorInstructionContainer}>
+            <Text style={healthPlanStyles.instructionTitle3}>2. Walk back to your original location</Text>
+            <View style={healthPlanStyles.durationContainer2}>
+                <AntDesign name="clockcircle" size={14} color="#001B62" />
+                <Text style={[mainStyles.caption, healthPlanStyles.exerciseTotalTime]}>
+                15 mins
+                </Text>
+            </View>
+        </View>
+
+        <View style={mainStyles.bottomButtonContainer2}>
+          <TouchableOpacity style={mainStyles.bottomButton} onPress={() => navigation.navigate("Outdoor1A")} >
+        <View style={mainStyles.buttonContent}>
+                <Text style={[mainStyles.whiteCaption, healthPlanStyles.exerciseStatusText]}>Start Exercise </Text>
             </View>
             </TouchableOpacity>
         </View>

@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { Ionicons } from '@expo/vector-icons';
-import { MaterialIcons } from 'react-native-vector-icons'; // Importing icon library
 import { userInfoStyle } from '../../stylesheet/authenticationStyles';
+
+import MaleDefault from '../../assets/icons/maleDefault.svg';
+import MaleSelected from '../../assets/icons/maleSelected.svg';
+import FemaleDefault from '../../assets/icons/femaleDefault.svg';
+import FemaleSelected from '../../assets/icons/femaleSelected.svg';
 
 export default function UserInfoScreen({ navigation }) {
   const [age, setAge] = useState('');
@@ -14,8 +18,12 @@ export default function UserInfoScreen({ navigation }) {
   const [gender, setGender] = useState('');  // New state for gender
   const [weightUnit, setWeightUnit] = useState('kg');  // State for weight unit (kg/lbs)
   const [heightUnit, setHeightUnit] = useState('cm');  // State for height unit (cm/ft)
+  const [error, setError] = useState(""); // Track error message
+  const [ageError, setAgeError] = useState(""); // Track error message for age
+  const [weightError, setWeightError] = useState(""); // Track error message for weight
+  const [heightError, setHeightError] = useState(""); // Track error message for height
 
-  // Save user data (age, weight, height, gender) to AsyncStorage
+  // This function save user data 
   const saveUserInfoToStorage = async (age, weight, height, gender, heightUnit, weightUnit) => {
     try {
       await AsyncStorage.setItem('@user_gender', gender);
@@ -30,20 +38,39 @@ export default function UserInfoScreen({ navigation }) {
     }
   };
 
-  const handleNext = () => {
-    let formattedHeight = height;
+ //This function saves the user's age, weight, height, gender, and unit preferences
+ const handleNext = () => {
+  let formattedHeight = height;
 
-    if (heightUnit === 'ft') {
-      // Combine feet and inches into a single string
-      formattedHeight = `${feet}'${inches}"`;
-    }
+  if (heightUnit === 'ft') {
+    formattedHeight = `${feet}'${inches}"`;
+  }
 
-    // Save age, weight, height, and gender to AsyncStorage before navigating
-    saveUserInfoToStorage(age, weight, formattedHeight, gender, heightUnit, weightUnit);
+  // Validation checks
+  if (!gender) {
+    setError('*Please select a gender');
+    return;
+  }
+  if (!age || isNaN(age) || age < 20 || age > 120) {
+    setAgeError('Age must be between 20 and 120');
+    return;
+  }
+  if (!weight || isNaN(weight) || weight < 30 || weight > 125) {
+    setWeightError('*Weight must be between 30 and 125');
+    return;
+  }
+  if (heightUnit === 'cm' && (!height || isNaN(height) || height < 100 || height > 250) ) {
+    setHeightError('*Height must be between 100 and 250 cm');
+    return;
+  }
+  
 
-    // After saving, navigate to the HomeScreen
-    navigation.navigate('Home', { screen: 'Dashboard' });
-  };
+  // Clear error and proceed
+  setError('');
+  saveUserInfoToStorage(age, weight, formattedHeight, gender, heightUnit, weightUnit);
+  navigation.navigate('CreateAccount1');
+};
+
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -51,16 +78,16 @@ export default function UserInfoScreen({ navigation }) {
       <TouchableOpacity style={userInfoStyle.backButton} onPress={() => navigation.goBack()}>
         <Ionicons name="arrow-back" size={35} color="#001B62" />
       </TouchableOpacity>
-        <Text style={userInfoStyle.title}>Profile information</Text>
+        <Text style={userInfoStyle.title}>User Information</Text>
         
         {/* Gender selection */}
         <Text style={userInfoStyle.label}>Gender</Text>
         <View style={userInfoStyle.genderContainer}>
           <TouchableOpacity
             style={[userInfoStyle.genderButton, gender === 'Male' && userInfoStyle.selectedButton]}
-            onPress={() => setGender('Male')}
+            onPress={() => {setGender('Male'); setError("");}}
           >
-            <MaterialIcons name="male" size={30} color={gender === 'Male' ? '#fff' : '#8495C0'} />
+           {gender === 'Male' ? (<MaleSelected width={45} height={45} />) : (<MaleDefault width={45} height={45} />)}
             <Text
             style={[
               gender === 'Male'
@@ -73,10 +100,10 @@ export default function UserInfoScreen({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={[userInfoStyle.genderButton, gender === 'Female' && userInfoStyle.selectedButton]}
-            onPress={() => setGender('Female')}
+            onPress={() => {setGender('Female'); setError("");}}
           >
-            <MaterialIcons name="female" size={30} color={gender === 'Female' ? '#fff' : '#8495C0'} />
-            <Text
+           {gender === 'Female' ? (<FemaleSelected width={45} height={45} />) : (<FemaleDefault width={45} height={45} />)}
+           <Text
             style={[
               gender === 'Female'
                 ? userInfoStyle.buttonTextSelected
@@ -88,57 +115,74 @@ export default function UserInfoScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
+        {/* Error Message Below Gender Selection */}
+        {error === '*Please select a gender' ? (
+          <Text style={userInfoStyle.errorText1}>{error}</Text>
+        ) : null}
+
         {/* Age input */}
         <Text style={userInfoStyle.label}>Age</Text>
-        <TextInput
-          style={userInfoStyle.input}
-          placeholder="Age"
-          value={age}
-          onChangeText={setAge}
-          keyboardType="numeric"
-        />
+        <View style={userInfoStyle.inputContainer}>
+          <TextInput
+            style={userInfoStyle.input}
+            placeholder="Enter age"
+            value={age}
+            onChangeText={(text) => {
+              setAge(text);
+              if (text) {
+                setAgeError(''); 
+              }
+            }}
+            keyboardType="numeric"
+          />
+           <View style={userInfoStyle.unitButtons}>
+                <Text
+                style={[
+                  weightUnit === 'cm'
+                    ? userInfoStyle.buttonTextSelected
+                    : userInfoStyle.buttonTextDefault,
+                ]}
+              >
+                years
+              </Text>
+          </View>
+        </View>
+       {/* Error Message Below Age */}
+       {ageError ? (
+          <Text style={userInfoStyle.errorText2}>{ageError}</Text>
+        ) : null}
         
         {/* Weight input with unit buttons */}
         <Text style={userInfoStyle.label}>Weight</Text>
         <View style={userInfoStyle.inputContainer}>
           <TextInput
             style={[userInfoStyle.input, userInfoStyle.weightInput]}
-            placeholder={`Weight (${weightUnit})`}
+            placeholder={`Enter approximate weight (${weightUnit})`}
             value={weight}
-            onChangeText={setWeight}
+            onChangeText={(text) => {
+              setWeight(text);
+              if (text) {
+                setWeightError(''); 
+              }
+            }}
             keyboardType="numeric"
           />
           <View style={userInfoStyle.unitButtons}>
-            <TouchableOpacity
-              style={[userInfoStyle.unitButton, weightUnit === 'kg' && userInfoStyle.selectedButton]}
-              onPress={() => setWeightUnit('kg')}
-            >
-              <Text
-              style={[
-                weightUnit === 'kg'
-                  ? userInfoStyle.buttonTextSelected
-                  : userInfoStyle.buttonTextDefault,
-              ]}
-            >
-              kg
-            </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[userInfoStyle.unitButton, weightUnit === 'lbs' && userInfoStyle.selectedButton]}
-              onPress={() => setWeightUnit('lbs')}
-            >
-              <Text
-              style={[
-                weightUnit === 'lbs'
-                  ? userInfoStyle.buttonTextSelected
-                  : userInfoStyle.buttonTextDefault,
-              ]}
-            >
-              lbs
-            </Text>
-            </TouchableOpacity>
+                <Text
+                style={[
+                  weightUnit === 'cm'
+                    ? userInfoStyle.buttonTextSelected
+                    : userInfoStyle.buttonTextDefault,
+                ]}
+              >
+                kg
+              </Text>
           </View>
         </View>
+        {/* Error Message Below Weight */}
+       {weightError ? (
+          <Text style={userInfoStyle.errorText2}>{weightError}</Text>
+        ) : null}
         
         {/* Height input with dynamic units */}
         <Text style={userInfoStyle.label}>Height</Text>
@@ -146,20 +190,17 @@ export default function UserInfoScreen({ navigation }) {
           <View style={userInfoStyle.inputContainer}>
             <TextInput
               style={[userInfoStyle.input, userInfoStyle.heightInput]}
-              placeholder="Height (cm)"
+              placeholder="Enter approximate height (cm)"
               value={height}
-              onChangeText={setHeight}
+              onChangeText={(text) => {
+                setHeight(text);
+                if (text) {
+                  setHeightError(''); 
+                }
+              }}
               keyboardType="numeric"
             />
             <View style={userInfoStyle.unitButtons}>
-              <TouchableOpacity
-                style={[userInfoStyle.unitButton, heightUnit === 'cm' && userInfoStyle.selectedButton]}
-                onPress={() => {
-                  setHeightUnit('cm');
-                  setFeet('');
-                  setInches('');
-                }}
-              >
                 <Text
                 style={[
                   weightUnit === 'cm'
@@ -169,26 +210,9 @@ export default function UserInfoScreen({ navigation }) {
               >
                 cm
               </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[userInfoStyle.unitButton, heightUnit === 'ft' && userInfoStyle.selectedButton]}
-                onPress={() => {
-                  setHeightUnit('ft');
-                  setHeight(''); // Clear cm input if switching to ft
-                }}
-              >
-                <Text
-                style={[
-                  weightUnit === 'ft'
-                    ? userInfoStyle.buttonTextSelected
-                    : userInfoStyle.buttonTextDefault,
-                ]}
-              >
-                ft
-              </Text>
-              </TouchableOpacity>
             </View>
           </View>
+
         ) : (
           <View style={userInfoStyle.inputContainer}>
             <TextInput
@@ -229,7 +253,11 @@ export default function UserInfoScreen({ navigation }) {
           </View>
         )}
 
-        {/* Replacing the Button with TouchableOpacity */}
+         {/* Error Message Below Height */}
+       {heightError ? (
+          <Text style={userInfoStyle.errorText2}>{heightError}</Text>
+        ) : null}
+
         <TouchableOpacity
           style={userInfoStyle.button} 
           onPress={handleNext}

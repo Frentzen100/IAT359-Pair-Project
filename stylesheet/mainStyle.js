@@ -7,7 +7,6 @@ const mainStyles = StyleSheet.create({
     paddingLeft: 30,
     flex: 1,
     paddingRight: 10,
-    
   },
 
   /*------------Typography ---------------*/
@@ -63,16 +62,19 @@ const mainStyles = StyleSheet.create({
   },
 
   caption: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#001B62', 
     fontFamily: 'Poppins_400Regular',
   },
 
   whiteCaption: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#F0F2FF', 
     fontFamily: 'Poppins_400Regular',
+  },
 
+  boldText: {
+   fontWeight: 'bold',
   },
 
   /*------------Progress Container ---------------*/
@@ -135,6 +137,13 @@ const mainStyles = StyleSheet.create({
     width: '92%',
   },
 
+  buttonContainer2: {
+    justifyContent: 'center', 
+    alignItems: 'center',
+    width: '92%',
+    marginBottom: 100,
+  },
+
   bottomButtonContainer:{
     marginTop: 30,
     alignItems: 'center',
@@ -143,6 +152,13 @@ const mainStyles = StyleSheet.create({
     // position: 'absolute',
     // bottom: 0,
     // transform: [{ translateX: 0 }, { translateY: 100}]
+  },
+
+  bottomButtonContainer2:{
+    marginTop: 30,
+    alignItems: 'center',
+    width: '92%',
+    paddingBottom: 120,
   },
 
    button2: {
@@ -178,6 +194,15 @@ const mainStyles = StyleSheet.create({
     marginTop: 20,
   },
 
+  button6:{
+    backgroundColor: '#001B62',
+    borderRadius: 10,
+    width: '100%', 
+    height: 60,
+    justifyContent: 'center',
+
+  },
+
   backButton: {
     backgroundColor: '#F0F2FF',
     borderRadius: 10,
@@ -189,6 +214,12 @@ const mainStyles = StyleSheet.create({
     color: '#7887B0',
     position: 'absolute',
     transform: [{ translateX: -140 }, { translateY: -50 }]
+  },
+
+  backButton2: {
+    position: 'absolute',
+    top: 60,
+    left: 30,
   },
 
   bottomButton: {
@@ -211,6 +242,28 @@ const mainStyles = StyleSheet.create({
     transform: [{ translateX: 0 }, { translateY: 325 }],
     position: 'absolute',
   },
+
+  bottomButton3:{
+    backgroundColor: '#001B62',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '75%', 
+    height: 60, 
+    transform: [{ translateX: 0 }, { translateY: 325 + 40 }],
+    position: 'absolute',
+  },
+
+  bottomButton4:{
+    backgroundColor: '#001B62',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '89%', 
+    height: 60, 
+    transform: [{ translateX: 0 }, { translateY: 0 }],
+    marginTop: 40,
+  },
   
   disableBottomButton2:{
     backgroundColor: '#001B6220',
@@ -223,7 +276,34 @@ const mainStyles = StyleSheet.create({
     position: 'absolute',
   },
 
+  disableBottomButtonContainer:{
+    // backgroundColor: '#C0C7E0',
+    // borderRadius: 10,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // width: '75%', 
+    // height: 60, 
+
+  },
+
+  disableBottomButton3:{
+    backgroundColor: '#C0C7E0',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '82%', 
+    height: 60, 
+    marginLeft: 18,
+    marginTop: 140,
+  },
+
   buttonContent: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+  },
+
+  buttonContent2: {
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'center',
@@ -253,6 +333,13 @@ const mainStyles = StyleSheet.create({
     marginRight: 10, 
   },
 
+  buttonText4: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontFamily: 'Poppins_600SemiBold',
+    textAlign: 'center',
+  },
+
   backButtonText: {
     color: '#001B62',
     marginLeft: 12,
@@ -265,7 +352,24 @@ const mainStyles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center', 
     justifyContent: 'center', 
+  },
 
+  cameraButton2: {
+    width: '86%', 
+    height: 60,
+    backgroundColor: '#001B62',
+    borderRadius: 10,
+    marginLeft: 7,
+    marginTop: 40,
+  },
+
+  cameraButton3: {
+    backgroundColor: '#001B62',
+    width: 250, 
+    height: 60,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   /*--------------------Daily Container--------------------*/
@@ -299,6 +403,12 @@ const mainStyles = StyleSheet.create({
   heroIcon: {
     width: 45,
     height: 45,
+    marginTop: 60,
+    marginBottom: 30,
+  },
+  heroIcon2: {
+    width: 180,
+    height: 180,
     marginTop: 60,
     marginBottom: 30,
   },
@@ -338,6 +448,25 @@ const mainStyles = StyleSheet.create({
     borderWidth: 2,
   },
 
+  placeholderImage2: {
+    width: '79%',
+    height: 200,
+    marginLeft: 30,
+    borderColor: '#C0C7E0',
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+
+  placeholderImage3: {
+    width: '88%',
+    height: 150,
+    marginLeft: 30,
+    borderColor: '#C0C7E0',
+    borderWidth: 2,
+    borderRadius: 5,
+    marginLeft: 0
+  },
+
   /*----------------Input---------------------*/
   input1: {
     backgroundColor: 'white',
@@ -349,6 +478,80 @@ const mainStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#dcdcdc',
     marginBottom: 10,
+  },
+
+  input2: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    color: '#001B62',
+    borderWidth: 1,
+    borderColor: '#dcdcdc',
+    marginBottom: 10,
+    height: 60,
+    marginTop: 10,
+    width: 155,
+    marginLeft: 15,
+    marginRight: 15,
+    textAlign: 'center',
+    borderColor: '#8495C0',
+    borderWidth: 1,
+    fontSize: 20,
+  },
+
+  input3: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    color: '#001B62',
+    borderWidth: 1,
+    borderColor: '#dcdcdc',
+    marginBottom: 10,
+    height: 60,
+    marginTop: 10,
+    width: '90%',
+    marginLeft: 15,
+    marginRight: 15,
+    borderColor: '#8495C0',
+    borderWidth: 1,
+    marginBottom: 40,
+    fontSize: 20,
+  },
+
+  input4: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    color: '#2c3e50',
+    borderWidth: 1,
+    borderColor: '#dcdcdc',
+    marginBottom: 40,
+    height: 230,
+    textAlignVertical: 'top',
+    width: '82%',
+    marginLeft: 25,
+  },
+
+  input5: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    color: '#2c3e50',
+    borderWidth: 1,
+    borderColor: '#dcdcdc',
+    marginBottom: 10,
+    fontFamily: 'Poppins_500Medium',
+    width: '82%',
+    marginLeft: 25,
+    marginBottom: 80,
   },
 
 

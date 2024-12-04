@@ -10,6 +10,7 @@ export default function SignInScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  //This function manages the user sign-in process
   const handleSignIn = async () => {
     if (!email || !password) {
       alert("Please fill out all fields.");

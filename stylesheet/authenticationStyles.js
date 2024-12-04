@@ -9,6 +9,9 @@ const homeStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F0F2FF', 
   },
+  myOsteoContainer:{
+    flexDirection: 'row',
+  },
   title: {
     fontFamily: 'Poppins_600SemiBold',
     textAlign: 'center',
@@ -39,10 +42,34 @@ const homeStyle = StyleSheet.create({
     marginBottom: 30,
     height: 60, 
   },
+
+  button2: {
+    padding: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30,
+    height: 60, 
+  },
+
   buttonText: {
     color: '#fff', 
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
+  },
+
+  buttonText2: {
+    color: '#001B62', 
+    fontSize: 16,
+    fontFamily: 'Poppins_400Regular',
+    textAlign: 'center',
+  },
+
+  buttonText3: {
+    color: '#001B62', 
+    fontSize: 16,
+    fontFamily: 'Poppins_500Medium',
     textAlign: 'center',
   },
 });
@@ -57,10 +84,19 @@ const createAccountStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F0F2FF', 
   },
+
+  container2: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F0F2FF', 
+  },
   title: {
     fontFamily: 'Poppins_600SemiBold',
     color: '#001B62', 
     fontSize: 30,
+    marginTop: 170,
     marginBottom: 50,
   },
   backButton: {
@@ -69,7 +105,7 @@ const createAccountStyle = StyleSheet.create({
     left: 30,
   },
   inputContainer: {
-    width: '100%',
+    width: '80%',
     marginBottom: 15,
     alignItems: 'center',
   },
@@ -271,17 +307,17 @@ const userInfoStyle = StyleSheet.create({
   },
   input: {
     width: '90%',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#808DB0',
-    backgroundColor: '#fff',
     color: '#001B62', 
     padding: 10,
     borderRadius: 10,
     fontSize: 16,
     fontFamily: 'Poppins_400Regular',
     height: 50,
-    marginBottom: 20,
+    marginBottom: 20,    
   },
+
   label: {
     fontSize: 16,
     width: 200,
@@ -301,13 +337,29 @@ const userInfoStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 130,
-    height: 120,  // Larger button
-    borderRadius: 10,
+    height: 110,  // Larger button
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: '#8495C0',
     backgroundColor: '#fff', 
     marginRight: 40, 
   },
+
+  errorText1:{
+    color: 'red',
+    fontSize: 14,
+    textAlign: 'center',
+    transform: [{ translateX: 0 }, { translateY: -10}],
+  },
+
+  errorText2:{
+    color: 'red',
+    fontSize: 14,
+    alignSelf: 'flex-start', 
+    marginLeft: 20,
+    transform: [{ translateX: 0 }, { translateY: -25}],
+  },
+
   selectedButton: {
     backgroundColor: '#001B62',
   },
@@ -316,11 +368,14 @@ const userInfoStyle = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     fontSize: 16,
     marginLeft: 2,
+    marginTop: 5,
+
   },
   buttonTextSelected: {
     color: '#fff',
     fontFamily: 'Poppins_400Regular',
     fontSize: 16,
+    marginTop: 5,
   },
   button: {
     backgroundColor: '#001B62', 
@@ -343,6 +398,7 @@ const userInfoStyle = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 0,
     width: '90%',
+    transform: [{ translateX: -3 }, { translateY: -12}]
   },
   weightInput: {
     flex: 1,
@@ -364,7 +420,72 @@ const userInfoStyle = StyleSheet.create({
     borderRadius: 8,
     marginLeft: 5,
   },
-})
+});
 
+const tutorialStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F0F2FF', 
+  },
 
-export { homeStyle, createAccountStyle, userInfoStyle, confirmationStyle };
+  backButton: {
+    position: 'absolute',
+    top: 60,
+    left: 30,
+  },
+
+  illustrationImage:{
+    marginTop: 300,
+  },
+
+  title: {
+    fontFamily: 'Poppins_600SemiBold',
+    textAlign: 'center',
+    color: '#001B62', 
+    fontSize: 30,
+    marginTop: 30,
+    marginBottom: 20,
+  },
+  paragraph: {
+    fontFamily: 'Poppins_500Medium',
+    textAlign: 'center',
+    color: '#001B62', 
+    fontSize: 16,
+    marginBottom: 20, 
+  },
+
+  indicatorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 20,
+    marginBottom: 100, 
+  },
+
+  indicatorContainer2: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 20,
+    marginBottom: 100, 
+  },
+
+  indicator: {
+    width: 16,
+    height: 16,
+    borderRadius: 100,
+    backgroundColor: '#D1D5DB', 
+    marginHorizontal: 5,
+  },
+
+  activeIndicator: {
+    backgroundColor: '#1E3A8A', 
+  },
+
+  translationContainer:{
+    transform: [{ translateX: 0 }, { translateY: 140}]
+  },
+});
+
+export { homeStyle, createAccountStyle, userInfoStyle, confirmationStyle, tutorialStyle };

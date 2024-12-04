@@ -14,7 +14,6 @@ const contactStyles = StyleSheet.create({
    contactPersonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
     padding: 15,
     marginBottom: 15,
     borderRadius: 10,
@@ -26,20 +25,6 @@ const contactStyles = StyleSheet.create({
     paddingTop: 20,
     marginBottom: -20,
   },
-  contactPersonFirstInitial: {
-    backgroundColor: '#21325E',
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    marginRight: 10,
-    paddingTop: 6,
-    overflow: 'hidden',
-  },
   contactDetailsContainer: {
     flexDirection: 'row', 
     alignItems: 'center', 
@@ -47,15 +32,15 @@ const contactStyles = StyleSheet.create({
   },
   contactPersonName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_500Medium',
     color: '#21325E',
+
   },
   contactPersonJob: {
     fontSize: 14,
     color: '#7A8398',
-    marginLeft: 5, 
+    marginTop: -5,
   },
-
 
   /*---------------------Add Contact -----------------------------*/
   inputContactContainer:{
@@ -76,19 +61,51 @@ const contactStyles = StyleSheet.create({
     marginLeft: -10,
   },
 
-  inputProfilePhoto:{
-    width: 200,
-    height: 200,
-    margin: 'auto',
-    borderRadius: 100,    
-    overflow: 'hidden',   
+  personContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderWidth: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderColor: "#C0C7E0",
+    borderRadius: 12,
+    marginVertical: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+    width: '90%',
+    zIndex: 1,
+    backgroundColor: '#F0F2FF',
+  },
+  contactDetailsContainer: {
+    flex: 1,
+    paddingLeft: 15,
+  },
+  contactPersonName: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#001B62",
+    fontFamily: "Poppins_500Medium",
+    marginBottom: 5,
+    marginLeft: -10
   },
 
-  contactPersonPhoto:{
-    width: 50,
-    height: 50,
-    marginRight: 20,
-    borderRadius: 100,    
+  emergencyInformation:{
+    backgroundColor: '#D5DBF2',
+    width: '90%',
+    marginTop: -15,
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 10,
+    borderRadius: 10,
+    paddingBottom: 20,
+    fontSize: 16,
+    marginBottom: 10,
   },
 
 });

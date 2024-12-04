@@ -9,7 +9,7 @@ const dashBoardStyles = StyleSheet.create({
   },
 
   profileInfoContainer: {
-    transform: [{ translateX: 20 }, { translateY: 70}]
+    transform: [{ translateX: 20 }, { translateY: 55}]
   },
 
   editContainer: {
@@ -61,6 +61,12 @@ const dashBoardStyles = StyleSheet.create({
     marginTop: -5,
   },
 
+  /*--------------------------------Daily Log Button ----------------------------*/
+  dailyLogButton:{
+    marginTop: 40,
+    marginBottom: 40,
+  },
+
   /*-------------------------------Dashboard Overview Container ---------------------------------------*/
   dashboardContainer: {
     marginTop: 30,
@@ -75,7 +81,7 @@ const dashBoardStyles = StyleSheet.create({
   },
 
   date: {
-    marginTop: 10,
+    marginTop: 5,
     marginBottom: 10,
   },
 
@@ -153,34 +159,37 @@ const dashBoardStyles = StyleSheet.create({
   emojiContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    flexWrap: 'wrap',
-    width: '100%',
-    marginLeft: -30,
+    marginLeft: -15,
     paddingLeft: 25,
     paddingRight: 25,
-    width: '115%',
-    flex: 1,
   },
 
   singleEmojiContainer: {
-    width: '30%',
-    marginLeft: -5,
+    width: 100,
     marginBottom: 60,
     alignItems: 'center', 
     justifyContent: 'center', 
-    paddingTop: 5,
+    paddingTop: 10,
     paddingBottom: 5,
-
-  },
-
-  emojiIcon: {
-    textAlign: 'center',
+    backgroundColor: '#D5DBF2',
+    marginHorizontal: 10,
+    borderRadius: 10,
+     // Shadow for iOS
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25, 
+    shadowRadius: 3.5,
+    // Shadow for Android
+    elevation: 5, // Adds shadow-like effect
   },
 
   emojiLabel: {
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 5,
+    color: '#7887B0',
+    fontFamily: 'Poppins_600SemiBold',
+    marginBottom: 10,
   },
 
   selectedEmoji: {
@@ -193,51 +202,55 @@ const dashBoardStyles = StyleSheet.create({
     elevation: 4, 
   },
 
-
-
- 
-
-
+  selectedEmojiText:{
+    color: '#001B62',
+  },
 
    /*------------------------------Pain Container ---------------------------------------*/
-  painContainer: {
-    marginTop: 57,
-  },
-
-  painGridContainer: {
+   painContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between', // Adjust spacing between images
-    width: '95%',
+    justifyContent: 'space-evenly',
+    marginLeft: -2,
+    paddingLeft: 10,
+    paddingRight: 25,
   },
-
-  painSelectionContainer:{
-    width: '30%',
+  painSelectionContainer: {
+    marginHorizontal: 10, 
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 120,
+    height: 120, 
+    borderRadius: 10,
+    transform: [{ translateX: -12 }, { translateY: 0}],
+    backgroundColor: '#D5DBF2',
+    marginBottom: 50,
+    // Shadow for iOS
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 4 }, 
+    shadowOpacity: 0.25, 
+    shadowRadius: 4, 
+    // Shadow for Android
+    elevation: 5, 
   },
-
-  painImage:{
-    width: 100,
-    height: 100,
-    textAlign: 'center',
-    borderWidth: 3,
-    borderColor: '#001B6280',
-    borderRadius: 5,
-  },
-
+  
   painLabel: {
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 30,
-    marginTop: 5,
+    marginTop: 10, 
+    color: '#7887B0',
+    fontFamily: 'Poppins_600SemiBold',
   },
-
   selectedPain: {
-    opacity: 0.7,
-    shadowColor: 'black',
+    opacity: 0.8, 
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 4,
-    borderColor: '#001B6280', 
+    elevation: 6,
+  },
+
+  selectedPainText:{
+    color: '#001B62',
   },
 
   /*-------------------------------Notification Container ---------------------------------------*/
@@ -299,6 +312,32 @@ const dashBoardStyles = StyleSheet.create({
     color: '#666',
     fontSize: 12,
   },
+
+  /*-------------------------------Setting Container ---------------------------------------*/
+  settingProfileContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    marginVertical: 20, 
+  },
+
+  profileIconWrapper: {
+    width: 80, 
+    height: 80, 
+    borderRadius: 40, 
+    backgroundColor: '#F4F6FA', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2, 
+    borderColor: '#001B62', 
+  },
+
+  settingHeroIcon: {
+    width: 50, 
+    height: 50, 
+    tintColor: '#001B62',
+  },
+
 
 });
 

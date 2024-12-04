@@ -7,14 +7,15 @@ const overallHealthStyles = StyleSheet.create({
     marginBottom: 10,
   },
 
+  boneHealthScoreParagraph:{
+    marginBottom: 75,
+  },
+
   overallOverviewParagraph:{
     marginTop: 5,
     marginBottom: 80,
   },
 
-  dailyLogButton:{
-    marginBottom: 45,
-  },
 
   dailyTitle: {
     marginBottom: 10,

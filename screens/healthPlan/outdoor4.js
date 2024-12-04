@@ -12,6 +12,8 @@ export default function Outdoor3() {
   const navigation = useNavigation();
   const route = useRoute();
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
   const exerciseTime = route.params?.exerciseTime || 0;
   
   // Destructure the location and randomLocation passed from Outdoor2
@@ -29,6 +31,10 @@ export default function Outdoor3() {
       longitudeDelta: 0.015,
     });
   }, [randomLocation]);
+
+  const handleNextPress = () => {
+    setModalVisible(true);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -68,7 +74,9 @@ export default function Outdoor3() {
         <Text>Loading...</Text>
       )}
 
-      <TouchableOpacity style={mainStyles.bottomButton2} onPress={() => navigation.navigate('Home', { screen: 'Dashboard' , params: { exerciseIncrement: exerciseTime}},)}>
+
+
+      <TouchableOpacity style={mainStyles.bottomButton} onPress={handleNextPress}>
         <Text style={[mainStyles.buttonText3]}>Finish Exercise</Text>
       </TouchableOpacity>
 
