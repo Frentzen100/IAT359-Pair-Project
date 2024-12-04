@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Text,
   ScrollView,
@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
-  Image,
+  Modal,
 } from "react-native";
 import {
   useFonts,
@@ -17,11 +17,14 @@ import {
 } from "@expo-google-fonts/poppins";
 import mainStyles from "../../stylesheet/mainStyle";
 import contactStyles from "../../stylesheet/contactStyle";
-import Entypo from "@expo/vector-icons/Entypo";
+import healthPlanStyles from "../../stylesheet/healthPlanStyle";
+
 import Feather from "@expo/vector-icons/Feather";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import { collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../firebaseConfig"; // Firestore configuration file
+import LottieView from "lottie-react-native";
 
 export default function AddMedication({ route, navigation }) {
   // Fonts
@@ -34,56 +37,37 @@ export default function AddMedication({ route, navigation }) {
 
   // State Variables
   const [pillName, setPillName] = useState("");
-  const [doctorName, setDoctorName] = useState("");
-  const [frequencyOfPill, setFrequencyOfPill] = useState("");
   const [instruction, setInstruction] = useState("");
-  const [photo, setPhoto] = useState(null);
-
-  // Handle photo update
-  useEffect(() => {
-    if (route.params?.photo) {
-      setPhoto(route.params.photo.uri);
-    }
-  }, [route.params?.photo]);
+  const [newMedication, setNewMedication] = useState(null); // Store the created medication
+  const animation = useRef(null);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   // Clear input fields
   const clearFields = () => {
     setPillName("");
-    setDoctorName("");
-    setFrequencyOfPill("");
     setInstruction("");
-    setPhoto(null);
   };
 
-  // Handle adding medication to Firestore
+  // Handle adding medication to Firestore and save it locally
   const handleDonePress = async () => {
-    if (!pillName || !doctorName || !frequencyOfPill || !instruction) {
-      Alert.alert("Error", "Please fill in all fields.");
+    if (!pillName || !instruction) {
       return;
     }
 
-    const newMedication = {
+    const medication = {
       pillName,
-      doctorName,
-      frequencyOfPill,
       instruction,
-      photo, // If you upload the photo to storage, replace this with the photo URL
       dateAdded: Timestamp.now(),
     };
 
     try {
-      const docRef = doc(collection(db, "medications")); // Create a new document in the "medications" collection
-      await setDoc(docRef, newMedication);
+      const docRef = doc(collection(db, "medications")); // Create a new document in Firestore
+      await setDoc(docRef, medication);
 
-      console.log("New Medication:", newMedication);
-      Alert.alert("Success", "Medication added successfully!");
-      clearFields(); // Clear input fields after success
-
-      // Navigate back to HealthPlan screen
-      navigation.navigate("Home", {
-        screen: "HealthPlan",
-        params: { newMedication },
-      });
+      setNewMedication(medication); // Save medication locally in state
+      console.log("New Medication:", medication);
+      clearFields();
+      setModalVisible(true); // Show success modal
     } catch (error) {
       console.error("Error adding medication:", error);
       Alert.alert("Error", "There was a problem adding the medication.");
@@ -96,52 +80,78 @@ export default function AddMedication({ route, navigation }) {
 
   return (
     <ScrollView style={[mainStyles.container]}>
-      {/* Photo */}
-      <Image
-        source={photo ? { uri: photo } : require("../../assets/images/placeholder.png")}
-        style={mainStyles.placeholderImage}
-      />
+      <TouchableOpacity
+        style={mainStyles.backButton2}
+        onPress={() => navigation.goBack()}
+      >
+        <AntDesign name="arrowleft" size={24} color="#001B62" />
+      </TouchableOpacity>
 
-      {/* Add Photo Button */}
-      <View style={mainStyles.buttonContainer}>
-        <TouchableOpacity
-          style={[mainStyles.button5, mainStyles.cameraButton]}
-          onPress={() => navigation.navigate("AddMedicationPhoto")}
-        >
-          <View style={[mainStyles.buttonContent]}>
-            <Text style={mainStyles.buttonText}>Add Photo</Text>
-            <Entypo name="camera" size={24} color="white" />
-          </View>
-        </TouchableOpacity>
-      </View>
+      <Text
+        style={[mainStyles.heading3, healthPlanStyles.nutritionIntakeTitle]}
+      >
+        Add today's note
+      </Text>
 
       {/* Input Fields */}
-      <View style={contactStyles.inputContactContainer}>
+      <View style={healthPlanStyles.inputNoteContainer}>
         <TextInput
-          style={mainStyles.input1}
-          placeholder="Pill Name"
+          style={mainStyles.input5}
+          placeholder="Note Title"
           value={pillName}
           onChangeText={setPillName}
         />
         <TextInput
-          style={mainStyles.input1}
-          placeholder="Doctor Name"
-          value={doctorName}
-          onChangeText={setDoctorName}
-        />
-        <TextInput
-          style={mainStyles.input1}
-          placeholder="How many pills in how many days?"
-          value={frequencyOfPill}
-          onChangeText={setFrequencyOfPill}
-        />
-        <TextInput
-          style={mainStyles.input1}
-          placeholder="Instruction"
+          style={mainStyles.input4}
+          placeholder="Enter Notes Here"
+          multiline={true}
           value={instruction}
           onChangeText={setInstruction}
         />
       </View>
+
+      {/* Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={healthPlanStyles.modalContainer}>
+          <TouchableOpacity
+            onPress={() => setModalVisible(false)}
+            style={healthPlanStyles.closeIcon2}
+          >
+            <Feather name="x" size={30} color="black" />
+          </TouchableOpacity>
+          <View style={healthPlanStyles.modalContent}>
+            <LottieView
+              autoPlay
+              ref={animation}
+              loop={false}
+              style={{ width: 100, height: 100 }}
+              source={require("../../assets/Tick Animation.json")}
+            />
+            <Text style={mainStyles.heading3}>Notes Logged</Text>
+            <Text style={[mainStyles.paragraph, healthPlanStyles.modalMassage]}>
+              Your notes are saved for today. Press “View Today’s Log” for a
+              summary of your entries.
+            </Text>
+
+            <TouchableOpacity
+              style={healthPlanStyles.modalButton}
+              onPress={() => {
+                setModalVisible(false); // Close the modal
+                navigation.navigate("DailyLog", {
+                  newNote: newMedication, // Pass the saved note to DailyLog
+                });
+              }}
+            >
+              <Text style={mainStyles.whiteCaption}>View Today's Log</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
       {/* Done Button */}
       <View style={mainStyles.bottomButtonContainer}>
@@ -150,8 +160,7 @@ export default function AddMedication({ route, navigation }) {
           onPress={handleDonePress}
         >
           <View style={mainStyles.buttonContent}>
-            <Text style={mainStyles.buttonText3}>Done</Text>
-            <Feather name="arrow-right" size={24} color="white" />
+            <Text style={mainStyles.buttonText3}>Save Note</Text>
           </View>
         </TouchableOpacity>
       </View>

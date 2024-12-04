@@ -12,7 +12,7 @@ export default function App({navigation}) {
   const [hasCameraPermission, setHasCameraPermission] = useState();
   const [photo, setPhoto] = useState();
 
-  //Function that asks for permission the moment the app is opened
+  //This function asks for permission the moment the app is opened
   useEffect(() => {
     (async () => {
       const cameraPermission = await Camera.requestCameraPermissionsAsync();
@@ -27,7 +27,7 @@ export default function App({navigation}) {
     return <Text>Failed to get permissions, change this in settings</Text>
   }
   
-  //Function that sets up the settings for the photo and takes it
+  //This function sets up the settings for the photo and takes it
   const takePic = async () => {
     const options = {
       quality: 1,

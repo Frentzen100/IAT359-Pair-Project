@@ -34,6 +34,7 @@ export default function AddContact({ route, navigation }) {
     }
   }, [route.params?.photo]);
 
+  //This function creates a new contact with details and then save it to Firebase Firestore 
   const handleDonePress = async () => {
     const newContact = {
       firstName: firstName,
@@ -44,8 +45,7 @@ export default function AddContact({ route, navigation }) {
     };
   
     try {
-      // Make sure db is a valid Firestore instance
-      console.log(db); // Log to check if db is correctly initialized
+      console.log(db); // Check if db is correctly initialized
   
       // Correctly call the collection and add a document
       const docRef = await addDoc(collection(db, 'contacts'), newContact);
@@ -61,7 +61,7 @@ export default function AddContact({ route, navigation }) {
     }
   };
 
-  //Function to load device's contacts, fetches name and phone numbers
+  //This function load device's contacts, fetches name and phone numbers
   const handleLoadPhoneContacts = async () => {
     const { status } = await Contacts.requestPermissionsAsync();
     if (status === 'granted') {
@@ -79,6 +79,7 @@ export default function AddContact({ route, navigation }) {
     }
   };
 
+  //This function get the first name, last name, and phone number from the selected contact,
   const handleAddContact = (selectedContact) => {
     const [firstName, ...lastNameParts] = (selectedContact.name || "").split(" ");
     const lastName = lastNameParts.join(" ");

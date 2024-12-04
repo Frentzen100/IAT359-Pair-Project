@@ -12,18 +12,32 @@ import OverallHealth from './screens/overallHealth/overallHealth';
 import Contact from './screens/contact/contact';
 import AddContact from './screens/contact/addContact'; 
 import AddContactPhoto from './screens/contact/addContactPhoto'; 
+import Indoor1 from './screens/healthPlan/indoor1'; 
+import Indoor2 from './screens/healthPlan/indoor2'; 
+import Indoor3 from './screens/healthPlan/indoor3'; 
+import Indoor4 from './screens/healthPlan/indoor4'; 
 import Outdoor1 from './screens/healthPlan/outdoor1'; 
+import Outdoor1A from './screens/healthPlan/outdoor1A'; 
 import Outdoor2 from './screens/healthPlan/outdoor2'; 
 import Outdoor3 from './screens/healthPlan/outdoor3'; 
 import Outdoor4 from './screens/healthPlan/outdoor4'; 
 import AddMedication from './screens/healthPlan/addMedication'; 
 import AddMedicationPhoto from './screens/healthPlan/addMedicationPhoto'; 
+import Nutrition1 from './screens/healthPlan/nutrition1'; 
+import AddNutritionPhoto from './screens/healthPlan/addNutritionPhoto'; 
+import DailyLog from './screens/dashboard/dailyLog'; 
+
 
 // Auth Screens
 import WelcomeScreen from './screens/auth_screens/home';
 import LogInScreen from './screens/auth_screens/logIn';
 import CreateAccountScreen from './screens/auth_screens/createaccount';
+import CreateAccountScreen1 from './screens/auth_screens/createaccount1';
 import UserInfoScreen from './screens/auth_screens/userInfo';
+import Tutorial1 from './screens/auth_screens/tutorial1';
+import Tutorial2 from './screens/auth_screens/tutorial2';
+import Tutorial3 from './screens/auth_screens/tutorial3';
+import AddProfilePhoto from './screens/auth_screens/addProfilePhoto'; 
 
 // Import styles
 import { tabBarStyles } from './stylesheet/tabStyle'; 
@@ -59,7 +73,7 @@ function HomeTab() {
         component={HealthPlan}
         options={{
           tabBarIcon: getTabBarIcon(require('./assets/icons/healthPlan1.png')),
-          tabBarLabel: 'Guides',
+          tabBarLabel: 'Tracker',
           headerShown: false,
         }}
       />
@@ -96,11 +110,24 @@ export default function App() {
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="LogIn" component={LogInScreen} />
           <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
+          <Stack.Screen name="CreateAccount1" component={CreateAccountScreen1} />
+          <Stack.Screen name="AddProfilePhoto" component={AddProfilePhoto} />
           <Stack.Screen name="UserInfo" component={UserInfoScreen} />
+          <Stack.Screen name="Tutorial1" component={Tutorial1} />
+          <Stack.Screen name="Tutorial2" component={Tutorial2} />
+          <Stack.Screen name="Tutorial3" component={Tutorial3} />
+          <Stack.Screen name="DailyLog" component={DailyLog} />
+          <Stack.Screen name="Indoor1" component={Indoor1} />
+          <Stack.Screen name="Indoor2" component={Indoor2} />
+          <Stack.Screen name="Indoor3" component={Indoor3} />
+          <Stack.Screen name="Indoor4" component={Indoor4} />
           <Stack.Screen name="Outdoor1" component={Outdoor1} />
+          <Stack.Screen name="Outdoor1A" component={Outdoor1A} />
           <Stack.Screen name="Outdoor2" component={Outdoor2} />
           <Stack.Screen name="Outdoor3" component={Outdoor3} />
           <Stack.Screen name="Outdoor4" component={Outdoor4} />
+          <Stack.Screen name="Nutrition1" component={Nutrition1} />
+          <Stack.Screen name="AddNutritionPhoto" component={AddNutritionPhoto} />
           <Stack.Screen name="AddContact" component={AddContact} />
           <Stack.Screen name="AddContactPhoto" component={AddContactPhoto} />
           <Stack.Screen name="AddMedication" component={AddMedication} />
