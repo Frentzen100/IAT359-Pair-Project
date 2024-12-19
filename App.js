@@ -1,9 +1,10 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
 
 // Import screens
 import Dashboard from './screens/dashboard/dashboard';
@@ -40,72 +41,78 @@ import Tutorial3 from './screens/auth_screens/tutorial3';
 import AddProfilePhoto from './screens/auth_screens/addProfilePhoto'; 
 
 // Import styles
-import { tabBarStyles } from './stylesheet/tabStyle'; 
+import { tabBarStyles } from './stylesheet/tabStyle';
+
+// Load fonts
+import { Poppins_400Regular, Poppins_600SemiBold, Poppins_500Medium } from '@expo-google-fonts/poppins';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// Utility for tabBarIcon
-const getTabBarIcon = (iconSource) => () => (
-  <Image style={tabBarStyles.icon} source={iconSource} />
+const getTabBarIcon = (iconSource) => ({ focused }) => (
+  <Image
+    style={[tabBarStyles.icon, { opacity: focused ? 1 : 0.6 }]} // Icon opacity adjusts with focus
+    source={iconSource}
+  />
 );
 
 function HomeTab() {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
         tabBarStyle: tabBarStyles.tabBar,
-        tabBarLabelStyle: tabBarStyles.label,
-      }}
+        tabBarLabel: ({ focused }) => (
+          <Text
+            style={[
+              tabBarStyles.label,
+              {
+                fontFamily: 'Poppins_400Regular',
+                opacity: focused ? 1 : 0.6, // Text opacity adjusts with focus
+              },
+            ]}
+          >
+            {route.name === 'Dashboard'
+              ? 'Home'
+              : route.name === 'HealthPlan'
+              ? 'Tracker'
+              : route.name === 'OverallHealth'
+              ? 'Insight'
+              : 'Contacts'}
+          </Text>
+        ),
+        tabBarIcon: getTabBarIcon(
+          route.name === 'Dashboard'
+            ? require('./assets/icons/dashboard2.png')
+            : route.name === 'HealthPlan'
+            ? require('./assets/icons/healthPlan1.png')
+            : route.name === 'OverallHealth'
+            ? require('./assets/icons/overallHealth1.png')
+            : require('./assets/icons/contact1.png')
+        ),
+      })}
       initialRouteName="HealthPlan"
     >
-      <Tab.Screen
-        name="Dashboard"
-        component={Dashboard}
-        options={{
-          tabBarIcon: getTabBarIcon(require('./assets/icons/dashboard2.png')),
-          tabBarLabel: 'Home',
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="HealthPlan"
-        component={HealthPlan}
-        options={{
-          tabBarIcon: getTabBarIcon(require('./assets/icons/healthPlan1.png')),
-          tabBarLabel: 'Tracker',
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="OverallHealth"
-        component={OverallHealth}
-        options={{
-          tabBarIcon: getTabBarIcon(require('./assets/icons/overallHealth1.png')),
-          tabBarLabel: 'Insight',
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="Contact"
-        component={Contact}
-        options={{
-          tabBarIcon: getTabBarIcon(require('./assets/icons/contact1.png')),
-          tabBarLabel: 'Contacts',
-          headerShown: false,
-        }}
-      />
+      <Tab.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
+      <Tab.Screen name="HealthPlan" component={HealthPlan} options={{ headerShown: false }} />
+      <Tab.Screen name="OverallHealth" component={OverallHealth} options={{ headerShown: false }} />
+      <Tab.Screen name="Contact" component={Contact} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }
 
 export default function App() {
-  return (
-    
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular, Poppins_600SemiBold, Poppins_500Medium
+  });
 
+  if (!fontsLoaded) {
+    return null; // or you can use a loading screen here
+  }
+
+  return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Welcome" screenOptions={{ headerShown: false }}> 
+        <Stack.Navigator initialRouteName="Welcome" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={HomeTab} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="LogIn" component={LogInScreen} />
@@ -134,9 +141,6 @@ export default function App() {
           <Stack.Screen name="AddMedicationPhoto" component={AddMedicationPhoto} />
         </Stack.Navigator>
       </NavigationContainer>
-
-
     </SafeAreaProvider>
   );
 }
-//https://docs.expo.dev/guides/icons/
