@@ -73,10 +73,7 @@ export default function App() {
       />
       <View style={mainStyles.buttonContainer}>
         <TouchableOpacity style={mainStyles.backButton} onPress={() => navigation.navigate('Home', { screen: 'HealthPlan' })}>
-          <View style={mainStyles.buttonContent}>
-            <AntDesign name="arrowleft" size={24} color="#7887B0" />
-            <Text style={mainStyles.backButtonText}>Back </Text>
-          </View>
+          <Ionicons name="chevron-back" size={35} color="#001B62" />    
         </TouchableOpacity>
       </View>
     

@@ -191,17 +191,17 @@ const handleNextPress = () => {
       {/* Overview */}
       <Image
         source={require("../../assets/icons/healthPlan2.png")}
-        style={mainStyles.heroIcon}
+        style={mainStyles.heroIcon2}
       />
       <Text style={mainStyles.heading1}>Health Trackers</Text>
       <Text
         style={[mainStyles.paragraph, healthPlanStyles.overallPlanParagraph]}
       >
-        Health activities are personalized for you. Select, complete, and log your progress.
+       Health activities are personalized for you. Select, complete, and log your progress.
       </Text>
 
       {/* Exercise */}
-      <Text style={mainStyles.heading1}>Recommended Exercise</Text>
+      <Text style={mainStyles.heading2}>Recommended Exercise</Text>
       {/* <Text
         style={[mainStyles.paragraph, healthPlanStyles.overallExerciseParagraph]}
       >
@@ -214,9 +214,9 @@ const handleNextPress = () => {
       source={require("../../assets/images/indoor.png")}
       style={healthPlanStyles.exerciseImage}
     />
-    <Text style={mainStyles.heading3}>Muscle Strengthening</Text>
+    <Text style={[mainStyles.heading3,healthPlanStyles.exerciseHeading]}>Muscle Strengthening</Text>
     <View style={healthPlanStyles.exerciseSubContainer}>
-      <Text style={[mainStyles.caption, healthPlanStyles.exerciseType]}> Indoor</Text>
+      <Text style={[mainStyles.caption, healthPlanStyles.exerciseType]}> Indoors</Text>
       <View style={healthPlanStyles.durationContainer}>
         <AntDesign name="clockcircle" size={14} color="#001B62" />
         <Text style={[mainStyles.caption, healthPlanStyles.exerciseTotalTime]}>
@@ -240,9 +240,9 @@ const handleNextPress = () => {
             source={require("../../assets/images/outdoor.png")}
             style={healthPlanStyles.exerciseImage}
       />
-      <Text style={mainStyles.heading3}>Short Walk</Text>
+     <Text style={[mainStyles.heading3,healthPlanStyles.exerciseHeading]}>Short Walk</Text>
       <View style={healthPlanStyles.exerciseSubContainer}>
-        <Text style={[mainStyles.caption, healthPlanStyles.exerciseType]}> Outdoor</Text>
+        <Text style={[mainStyles.caption, healthPlanStyles.exerciseType]}> Outdoors</Text>
         <View style={healthPlanStyles.durationContainer}>
           <AntDesign name="clockcircle" size={14} color="#001B62" />
           <Text style={[mainStyles.caption, healthPlanStyles.exerciseTotalTime]}>
@@ -265,7 +265,7 @@ const handleNextPress = () => {
 
       {/* Nutrition */}
       <Text
-        style={[mainStyles.heading1, healthPlanStyles.healthTitle]}
+        style={[mainStyles.heading2, healthPlanStyles.healthTitle]}
       >
         Nutrition Intake
       </Text>
@@ -278,7 +278,7 @@ const handleNextPress = () => {
       {/* View Log Button */}
       <View style={mainStyles.buttonContainer}>
         <TouchableOpacity
-          style={mainStyles.button6}
+          style={mainStyles.button7}
           onPress={() => navigation.navigate("Nutrition1")}
         >
           <View style={mainStyles.buttonContent}>
@@ -289,7 +289,7 @@ const handleNextPress = () => {
 
       {/*Feeling and Emoji*/}
       <View style={dashboardStyles.feelingContainer}>
-        <Text style={[mainStyles.heading1, dashboardStyles.feelingTitle]}>
+        <Text style={[mainStyles.heading2, dashboardStyles.feelingTitle]}>
           How are you feeling today?
         </Text>
         <Text style={[mainStyles.paragraph, dashboardStyles.feelingParagraph]}>
@@ -413,7 +413,7 @@ const handleNextPress = () => {
        
        {/* Pain Selection Section */}
        <View style={dashboardStyles.painGridContainer}>
-        <Text style={[mainStyles.heading1, dashboardStyles.feelingTitle]}>
+        <Text style={[mainStyles.heading2, dashboardStyles.feelingTitle]}>
           Where are you feeling pain today?
         </Text>
         <Text style={[mainStyles.paragraph, dashboardStyles.feelingParagraph]}>
@@ -473,7 +473,7 @@ const handleNextPress = () => {
 
        {/* Notes */}
        <View style={healthPlanStyles.prescriptionContainer}>
-        <Text style={mainStyles.heading1}>Notes</Text>
+        <Text style={mainStyles.heading2}>Notes</Text>
         <Text style={[mainStyles.paragraph, healthPlanStyles.overallNoteParagraph]}>
           Log your notes to track important details throughout the day.
         </Text>

@@ -132,8 +132,8 @@ export default function Contact() {
   return (
     <ScrollView style={[mainStyles.container]}>
       <Image
-        source={require("../../assets/icons/healthPlan2.png")}
-        style={mainStyles.heroIcon}
+        source={require("../../assets/icons/contactIcon2.png")}
+        style={mainStyles.heroIcon3}
       />
       <Text style={mainStyles.heading1}>Emergency Contacts</Text>
       <Text style={[mainStyles.paragraph, contactStyles.overallOverviewParagraph]}>
@@ -161,7 +161,7 @@ export default function Contact() {
         Emergency
       </Text>
       <Text style={contactStyles.contactPersonJob}>
-         911
+         (911)
       </Text>
       <FontAwesome name="phone" size={32} color="#84DD54" />
     </View>
@@ -174,7 +174,7 @@ export default function Contact() {
         Healthlink BC
       </Text>
       <Text style={contactStyles.contactPersonJob}>
-         811
+         (811)
       </Text>
       <FontAwesome name="phone" size={32} color="#84DD54" />
     </View>

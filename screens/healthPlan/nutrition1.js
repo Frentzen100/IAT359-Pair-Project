@@ -32,6 +32,8 @@ import ProteinIcon from '../../assets/icons/proteinIcon.svg';
 import LottieView from "lottie-react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { Ionicons } from '@expo/vector-icons';
+
 export default function Nutrient({ route, navigation }) {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -259,8 +261,8 @@ export default function Nutrient({ route, navigation }) {
   return (
     <ScrollView style={[mainStyles.container]}>
        <TouchableOpacity style={mainStyles.backButton2} onPress={() => navigation.goBack()}>
-       <AntDesign name="arrowleft" size={24} color="#7887B0" />
-      </TouchableOpacity>
+          <Ionicons name="chevron-back" size={35} color="#001B62" />    
+        </TouchableOpacity>
        
       <Text style={[mainStyles.heading3, healthPlanStyles.nutritionIntakeTitle]}>Today's Nutrition Intake</Text>
       {currentScreen === "FoodList" && (

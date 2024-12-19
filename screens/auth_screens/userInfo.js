@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { Ionicons } from '@expo/vector-icons';
-import { userInfoStyle } from '../../stylesheet/authenticationStyles';
+import { userInfoStyle, createAccountStyle } from '../../stylesheet/authenticationStyles';
 
 import MaleDefault from '../../assets/icons/maleDefault.svg';
 import MaleSelected from '../../assets/icons/maleSelected.svg';
@@ -75,13 +75,12 @@ export default function UserInfoScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={userInfoStyle.container}>
-      <TouchableOpacity style={userInfoStyle.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={35} color="#001B62" />
+      <TouchableOpacity style={createAccountStyle.backButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="chevron-back" size={35} color="#001B62" />
       </TouchableOpacity>
         <Text style={userInfoStyle.title}>User Information</Text>
         
         {/* Gender selection */}
-        <Text style={userInfoStyle.label}>Gender</Text>
         <View style={userInfoStyle.genderContainer}>
           <TouchableOpacity
             style={[userInfoStyle.genderButton, gender === 'Male' && userInfoStyle.selectedButton]}

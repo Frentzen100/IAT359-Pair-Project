@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebase_auth } from '../../firebaseConfig';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createAccountStyle } from '../../stylesheet/authenticationStyles';
+import { createAccountStyle, userInfoStyle } from '../../stylesheet/authenticationStyles';
 import { confirmationStyle } from '../../stylesheet/authenticationStyles';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -79,10 +79,10 @@ export default function SignUpScreen({ navigation }) {
   return (
     <View style={createAccountStyle.container2}>
       <TouchableOpacity style={createAccountStyle.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={35} color="#001B62" />
+        <Ionicons name="chevron-back" size={35} color="#001B62" />
       </TouchableOpacity>
 
-      <Text style={createAccountStyle.title}>User Profile</Text>
+      <Text style={userInfoStyle.title}>User Profile</Text>
       {photo ? (
   <Image
     source={{ uri: photo.uri }} // Use the 'uri' property of the parsed photo object

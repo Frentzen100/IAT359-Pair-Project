@@ -61,7 +61,7 @@ export default function SignUpScreen({ navigation }) {
   return (
     <View style={createAccountStyle.container}>
       <TouchableOpacity style={createAccountStyle.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={35} color="#001B62" />
+        <Ionicons name="chevron-back" size={35} color="#001B62" />
       </TouchableOpacity>
 
       <Text style={createAccountStyle.title}>Welcome!</Text>

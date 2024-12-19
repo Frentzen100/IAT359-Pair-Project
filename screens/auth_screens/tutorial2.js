@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
-import { tutorialStyle } from '../../stylesheet/authenticationStyles';
+import { tutorialStyle, createAccountStyle } from '../../stylesheet/authenticationStyles';
 import { homeStyle } from '../../stylesheet/authenticationStyles';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -11,11 +11,11 @@ export default function Tutorial1({ navigation }) {
   return (
 
     <View style={tutorialStyle.container}>
-      <TouchableOpacity style={tutorialStyle.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={35} color="#001B62" />
+      <TouchableOpacity style={createAccountStyle.backButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="chevron-back" size={35} color="#001B62" />
       </TouchableOpacity>
 
-      <Illustration width={250} height={250} marginTop={300}></Illustration>
+      <Illustration width={250} height={250} marginTop={350}></Illustration>
       <Text style={tutorialStyle.title}>Track Nutrients in Every Meal</Text>
       <Text style={tutorialStyle.paragraph}>
       Easily evaluate your meals for key nutrients like calcium, protein, and vitamin D. 

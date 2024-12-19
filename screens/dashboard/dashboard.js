@@ -244,6 +244,7 @@ export default function Dashboard() {
         </View>
       </View>
 
+
       {/* View Log Button */}
       <View style={mainStyles.buttonContainer}>
         <TouchableOpacity
@@ -261,11 +262,13 @@ export default function Dashboard() {
       <Text style={mainStyles.paragraph}>
         Track your health metrics and stay in the green bar for optimal bone health.
       </Text>
-
+      
+      
       <ProgressBar progress={exerciseProgress} goal={exerciseGoal} icon="run" taskName="Exercise" />
       <ProgressBar progress={calciumProgress} goal={calciumIntake || 1} taskName="Calcium Intake" />
       <ProgressBar progress={vitaminDProgress} goal={vitaminDIntake || 1} taskName="Vitamin D Intake" />
       <ProgressBar progress={proteinProgress} goal={proteinIntake || 1} taskName="Protein Intake" />
+      <Text></Text><Text></Text><Text></Text>
     </ScrollView>
   );
 }

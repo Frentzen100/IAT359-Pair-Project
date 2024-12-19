@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import { tutorialStyle } from '../../stylesheet/authenticationStyles';
-import { homeStyle } from '../../stylesheet/authenticationStyles';
+import { homeStyle, createAccountStyle } from '../../stylesheet/authenticationStyles';
 import { Ionicons } from '@expo/vector-icons';
 
 import Illustration from '../../assets/illustrations/tutorial1.svg';
@@ -9,16 +9,16 @@ import Illustration from '../../assets/illustrations/tutorial1.svg';
 export default function Tutorial1({ navigation }) {
 
   return (
-
     <View style={tutorialStyle.container}>
-      <TouchableOpacity style={tutorialStyle.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={35} color="#001B62" />
+      
+      <TouchableOpacity style={createAccountStyle.backButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="chevron-back" size={35} color="#001B62" />
       </TouchableOpacity>
 
-      <Illustration width={250} height={250} marginTop={300}></Illustration>
+      <Illustration width={250} height={250} marginTop={350}></Illustration>
       <Text style={tutorialStyle.title}>Stay Active with Guidance</Text>
       <Text style={tutorialStyle.paragraph}>
-      We motivate patients with osteoporosis to manage their bone health by providing personalized daily goals
+      Follow step-by-step instructions{'\n'}designed to suit your fitness level.
       </Text>
 
       <View style={tutorialStyle.indicatorContainer}>

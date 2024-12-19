@@ -54,7 +54,7 @@ export default function Outdoor3() {
 
       <View style={healthPlanStyles.outdoorContainer}>
         <View style={healthPlanStyles.outdoorTopContainer}>
-          <Text style={[mainStyles.heading1, healthPlanStyles.date]}>Outdoor Walk</Text>
+          <Text style={[mainStyles.heading2, healthPlanStyles.date]}>Outdoor Walk</Text>
           <Text style={mainStyles.heading3}> {exerciseTime} mins </Text>
         </View>
         <Text style={mainStyles.paragraph}>

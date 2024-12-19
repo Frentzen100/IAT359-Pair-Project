@@ -15,10 +15,10 @@ export default function Tutorial1({ navigation }) {
         <Ionicons name="arrow-back" size={35} color="#001B62" />
       </TouchableOpacity>
 
-      <Illustration width={250} height={250} marginTop={300}></Illustration>
+      <Illustration width={250} height={250} marginTop={350}></Illustration>
       <Text style={tutorialStyle.title}>Monitor Your Daily Progress</Text>
       <Text style={tutorialStyle.paragraph}>
-      Track your exercise and nutrition progress with health metrics. Stay motivated and celebrate success!
+      Track your exercise and nutrition progress {'\n'}with personalized health metrics. 
       </Text>
 
       <View style={tutorialStyle.indicatorContainer}>

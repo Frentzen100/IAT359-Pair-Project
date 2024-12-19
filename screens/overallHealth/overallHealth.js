@@ -82,12 +82,12 @@ export default function OverallHealth() {
           overallHealthStyle.overallOverviewParagraph,
         ]}
       >
-        A resource hub offering insights into osteoporosis, its management, and
+        A resource hub offering insight into osteoporosis, its management, and
         helpful tools for better bone health.
       </Text>
 
       {/* Understanding Osteoporosis */}
-      <Text style={[mainStyles.heading3, overallHealthStyle.boneHealthScoreHeading]}>
+      <Text style={[mainStyles.heading2, overallHealthStyle.boneHealthScoreHeading]}>
         Understanding osteoporosis
       </Text>
       <Text
@@ -96,7 +96,7 @@ export default function OverallHealth() {
           overallHealthStyle.boneHealthScoreParagraph,
         ]}
       >
-        Osteoporosis is a condition where bones become weak and brittle, making
+        Osteoporosis is a condition where <Text style={{ fontFamily:'Poppins_600SemiBold'}}>bone</Text> become  <Text style={{ fontFamily:'Poppins_600SemiBold'}}>weak and brittle</Text>, making
         them more likely to fracture. It occurs when bone density decreases and
         the structure of bone tissue becomes fragile.
       </Text>

@@ -291,7 +291,7 @@ export default function App() {
   return (
     <ScrollView style={[mainStyles.container]}>
         <TouchableOpacity style={mainStyles.backButton2} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={35} color="#001B62" />
+          <Ionicons name="chevron-back" size={35} color="#001B62" />    
         </TouchableOpacity>
 
         <View style={[healthPlanStyles.indoorExerciseContainer]}>

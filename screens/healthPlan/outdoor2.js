@@ -141,16 +141,13 @@ export default function Outdoor2() {
         style={mainStyles.topImage}
       />
       <View style={mainStyles.buttonContainer}>
-        <TouchableOpacity style={mainStyles.backButton} onPress={() => navigation.navigate("Outdoor1")}>
-          <View style={mainStyles.buttonContent}>
-            <AntDesign name="arrowleft" size={24} color="#7887B0" />
-            <Text style={mainStyles.backButtonText}>Back</Text>
-          </View>
+        <TouchableOpacity style={mainStyles.backButton3} onPress={() => navigation.navigate("Outdoor1")}>
+        <Ionicons name="chevron-back" size={35} color="#001B62" />    
         </TouchableOpacity>
       </View>
       <View style={healthPlanStyles.outdoorContainer}>
         <View style={healthPlanStyles.outdoorTopContainer}>
-          <Text style={[mainStyles.heading1, healthPlanStyles.date]}>Outdoor Walk</Text>
+          <Text style={[mainStyles.heading2, healthPlanStyles.date]}>Outdoor Walk</Text>
           <Text style={mainStyles.heading3}> {exerciseTime} mins </Text>
         </View>
         <Text style={mainStyles.paragraph}>

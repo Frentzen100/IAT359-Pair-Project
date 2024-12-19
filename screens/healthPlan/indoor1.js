@@ -7,6 +7,7 @@ import healthPlanStyles from '../../stylesheet/healthPlanStyle';
 import React, { useEffect, useState } from "react";
 
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { Ionicons } from '@expo/vector-icons';
 
 import { useNavigation, useRoute } from '@react-navigation/native'; 
 
@@ -34,10 +35,7 @@ export default function App() {
       />
       <View style={mainStyles.buttonContainer}>
         <TouchableOpacity style={mainStyles.backButton} onPress={() => navigation.navigate('Home', { screen: 'HealthPlan' })}>
-          <View style={mainStyles.buttonContent}>
-            <AntDesign name="arrowleft" size={24} color="#7887B0" />
-            <Text style={mainStyles.backButtonText}>Back </Text>
-          </View>
+        <Ionicons name="chevron-back" size={35} color="#001B62" />           
         </TouchableOpacity>
       </View>
     
