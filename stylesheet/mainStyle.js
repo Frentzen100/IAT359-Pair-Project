@@ -74,7 +74,14 @@ const mainStyles = StyleSheet.create({
   },
 
   boldText: {
-   fontWeight: 'bold',
+    fontWeight: 'bold',
+  },
+
+  metricHeader: {
+    fontSize: 16,
+    fontFamily: 'Poppins_600SemiBold',
+    color: '#001B62',
+    marginBottom: 15,
   },
 
   /*------------Progress Container ---------------*/
@@ -132,9 +139,9 @@ const mainStyles = StyleSheet.create({
 
   /*----------------------Button Container -------------------*/
   buttonContainer: {
-    justifyContent: 'center', 
-    alignItems: 'center',
-    width: '92%',
+    // justifyContent: 'center', 
+    alignItems: 'left',
+    width: '105%',
   },
 
   buttonContainer2: {
@@ -165,7 +172,8 @@ const mainStyles = StyleSheet.create({
     backgroundColor: '#001B62',
     borderRadius: 10,
     justifyContent: 'center',
-    width: '75%', 
+    alignItems: 'center',
+    width: '90%', 
     height: 60, 
   },
 
@@ -200,20 +208,29 @@ const mainStyles = StyleSheet.create({
     width: '100%', 
     height: 60,
     justifyContent: 'center',
+  },
 
+  button7:{
+    backgroundColor: '#001B62',
+    borderRadius: 10,
+    width: '90%', 
+    height: 60,
+    justifyContent: 'center',
+    transform: [{ translateX: 0 }, { translateY: -15}],
+    marginBottom: 10,
   },
 
   backButton: {
     backgroundColor: '#F0F2FF',
-    borderRadius: 10,
-    borderWidth: 1,
+    borderRadius: 100,
     borderColor: '#7887B0',
     justifyContent: 'center',
-    width: 94, 
-    height:30, 
+    width: 35,
+    height:35, 
     color: '#7887B0',
     position: 'absolute',
-    transform: [{ translateX: -140 }, { translateY: -50 }]
+    zIndex: 10,
+    transform: [{ translateX: 0 }, { translateY: -70}],
   },
 
   backButton2: {
@@ -221,6 +238,20 @@ const mainStyles = StyleSheet.create({
     top: 60,
     left: 30,
   },
+
+  backButton3: {
+    backgroundColor: '#F0F2FF',
+    borderRadius: 100,
+    borderColor: '#7887B0',
+    justifyContent: 'center',
+    width: 35,
+    height:35, 
+    color: '#7887B0',
+    position: 'absolute',
+    zIndex: 10,
+    transform: [{ translateX: 30 }, { translateY: -70}],
+  },
+
 
   bottomButton: {
     backgroundColor: '#001B62',
@@ -301,6 +332,7 @@ const mainStyles = StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'center',
+    width: '100%'
   },
 
   buttonContent2: {
@@ -308,11 +340,12 @@ const mainStyles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center',
   },
+  
 
   buttonText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: 'regular',
+    fontFamily: 'Poppins_500Medium',
     textAlign: 'center',
     marginRight: 10, 
   },
@@ -377,9 +410,8 @@ const mainStyles = StyleSheet.create({
   backgroundColor: '#F3F5FF',
   borderRadius: 10,
   padding: 16,
-  marginTop: 30,
+  marginTop: 50,
   width: '95%',
-
   //Android shadow
   elevation: 5, 
   // iOS shadow
@@ -401,15 +433,23 @@ const mainStyles = StyleSheet.create({
 
   /*--------------------Other Icons---------------------*/
   heroIcon: {
-    width: 45,
-    height: 45,
+    width: 50,
+    height: 50,
     marginTop: 60,
     marginBottom: 30,
   },
   heroIcon2: {
-    width: 180,
-    height: 180,
+    width: 50,
+    height: 50,
     marginTop: 60,
+    marginBottom: 30,
+    marginBottom: 30,
+  },
+
+  heroIcon3: {
+    width: 50,
+    height: 50,
+    marginTop: 100,
     marginBottom: 30,
   },
 

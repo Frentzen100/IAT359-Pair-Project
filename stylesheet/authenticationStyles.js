@@ -10,7 +10,12 @@ const homeStyle = StyleSheet.create({
     backgroundColor: '#F0F2FF', 
   },
   myOsteoContainer:{
-    flexDirection: 'row',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: 10,
+    marginBottom: 60,
+    marginTop: 140
   },
   title: {
     fontFamily: 'Poppins_600SemiBold',
@@ -18,14 +23,14 @@ const homeStyle = StyleSheet.create({
     color: '#001B62', 
     fontSize: 30,
     marginTop: 130,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   paragraph: {
     fontFamily: 'Poppins_500Medium',
     textAlign: 'center',
     color: '#001B62', 
     fontSize: 16,
-    marginBottom: 200, 
+    marginBottom: 20,
   },
   buttonContainer: {
     width: '90%', 
@@ -42,10 +47,12 @@ const homeStyle = StyleSheet.create({
     marginBottom: 30,
     height: 60, 
   },
-
   button2: {
+    backgroundColor: '#F0F2FF', 
     padding: 12,
     borderRadius: 10,
+    borderWidth: 2,
+    borderBlockColor: '#001B62',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 30,
@@ -55,14 +62,14 @@ const homeStyle = StyleSheet.create({
   buttonText: {
     color: '#fff', 
     fontSize: 16,
-    fontFamily: 'Poppins_400Regular',
+    fontFamily: 'Poppins_500Medium',
     textAlign: 'center',
   },
 
   buttonText2: {
     color: '#001B62', 
     fontSize: 16,
-    fontFamily: 'Poppins_400Regular',
+    fontFamily: 'Poppins_500Medium',
     textAlign: 'center',
   },
 
@@ -84,7 +91,6 @@ const createAccountStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F0F2FF', 
   },
-
   container2: {
     flex: 1,
     padding: 20,
@@ -96,16 +102,16 @@ const createAccountStyle = StyleSheet.create({
     fontFamily: 'Poppins_600SemiBold',
     color: '#001B62', 
     fontSize: 30,
-    marginTop: 170,
+    marginTop: 0,
     marginBottom: 50,
   },
   backButton: {
     position: 'absolute',
-    top: 60,
+    top: 70,
     left: 30,
   },
   inputContainer: {
-    width: '80%',
+    width: '100%',
     marginBottom: 15,
     alignItems: 'center',
   },
@@ -126,7 +132,7 @@ const createAccountStyle = StyleSheet.create({
     color: '#001B62', 
     padding: 10,
     borderRadius: 10,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Poppins_400Regular',
     height: 50,
   },
@@ -157,7 +163,7 @@ const createAccountStyle = StyleSheet.create({
   },
   buttonText: {
     color: '#fff', 
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Poppins_500Medium',
     textAlign: 'center',
   },
@@ -248,9 +254,9 @@ const confirmationStyle = StyleSheet.create({
   },
   modalContent: {
     width: '80%',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F0F2FF', 
     borderRadius: 20,
-    padding: 20,
+    padding: 30,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -260,27 +266,33 @@ const confirmationStyle = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: 'bold',
     color: '#001B62',
     marginBottom: 10,
     textAlign: 'center',
+    marginTop: 30,
   },
   modalMessage: {
     fontSize: 16,
-    color: '#6c757d',
+    fontFamily: 'Poppins_400Regular',
+    color: '#001B62',
     textAlign: 'center',
     marginBottom: 20,
   },
   continueButton: {
     backgroundColor: '#001B62',
-    paddingVertical: 12,
-    paddingHorizontal: 25,
+    width: '100%',
+    padding: 20,
+    alignItems: 'center',
     borderRadius: 10,
+    marginTop: 50,
+    marginBottom: 30,
   },
   continueButtonText: {
     fontSize: 16,
-    color: '#fff',
-    fontWeight: 'bold',
+    color: '#F0F2FF',
+    fontFamily: 'Poppins_500Medium',
   },
 });
 
@@ -317,7 +329,6 @@ const userInfoStyle = StyleSheet.create({
     height: 50,
     marginBottom: 20,    
   },
-
   label: {
     fontSize: 16,
     width: 200,
@@ -329,20 +340,22 @@ const userInfoStyle = StyleSheet.create({
   },
   genderContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start', 
-    flexWrap: 'wrap', 
+    justifyContent: 'space-between', 
+    // flexWrap: 'wrap', 
     marginBottom: 30,
+    gap: 20,
   },
   genderButton: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 130,
-    height: 110,  // Larger button
+    height: 120,  // Larger button
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#8495C0',
     backgroundColor: '#fff', 
-    marginRight: 40, 
+    marginBottom: 20,
+    // marginRight: 40, 
   },
 
   errorText1:{
@@ -431,6 +444,16 @@ const tutorialStyle = StyleSheet.create({
     backgroundColor: '#F0F2FF', 
   },
 
+  halfSquareBackground: {
+    position: 'absolute',
+    // bottom: 0,
+    // left: 0,
+    top: 10,
+    width: '110%',
+    height: '50%', // Half square height
+    backgroundColor: '#D5DBF2', 
+  },
+
   backButton: {
     position: 'absolute',
     top: 60,
@@ -445,12 +468,12 @@ const tutorialStyle = StyleSheet.create({
     fontFamily: 'Poppins_600SemiBold',
     textAlign: 'center',
     color: '#001B62', 
-    fontSize: 30,
-    marginTop: 30,
+    fontSize: 20,
+    marginTop: 60,
     marginBottom: 20,
   },
   paragraph: {
-    fontFamily: 'Poppins_500Medium',
+    fontFamily: 'Poppins_400Regular',
     textAlign: 'center',
     color: '#001B62', 
     fontSize: 16,
@@ -461,7 +484,7 @@ const tutorialStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginVertical: 20,
-    marginBottom: 100, 
+    marginBottom: 50, 
   },
 
   indicatorContainer2: {
@@ -472,10 +495,10 @@ const tutorialStyle = StyleSheet.create({
   },
 
   indicator: {
-    width: 16,
-    height: 16,
+    width: 11,
+    height: 11,
     borderRadius: 100,
-    backgroundColor: '#D1D5DB', 
+    backgroundColor: '#C0C7E0', 
     marginHorizontal: 5,
   },
 

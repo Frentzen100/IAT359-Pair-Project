@@ -5,7 +5,7 @@ const dashBoardStyles = StyleSheet.create({
   /*-------------------------------Profile Container ---------------------------------------*/
   profileContainer: {
     flexDirection: 'row',
-    marginTop: 25,
+    marginTop: 50,
   },
 
   profileInfoContainer: {
@@ -19,6 +19,13 @@ const dashBoardStyles = StyleSheet.create({
 
   editIcon: {
     marginLeft: 10,
+  },
+
+  separatorLine: {
+    height: 1, // Height of the line
+    backgroundColor: '#D5DBF2', // Line color
+    marginVertical: 20, // Margin to add space around the line
+    width: '100%', // Make the line span the full width
   },
 
   /*----------------------------------Popup ---------------------------------------------*/
@@ -65,6 +72,9 @@ const dashBoardStyles = StyleSheet.create({
   dailyLogButton:{
     marginTop: 40,
     marginBottom: 40,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   /*-------------------------------Dashboard Overview Container ---------------------------------------*/
@@ -214,6 +224,11 @@ const dashBoardStyles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 25,
   },
+
+  painGridContainer: {
+   marginTop: 30,
+  },
+
   painSelectionContainer: {
     marginHorizontal: 10, 
     alignItems: 'center',

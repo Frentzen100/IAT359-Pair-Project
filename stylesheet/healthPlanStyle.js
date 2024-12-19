@@ -8,7 +8,7 @@ const healthPlanStyles = StyleSheet.create({
   },
 
   overallNoteParagraph:{
-    marginTop: 20,
+    marginTop: 13,
     marginBottom: 60,
   },
 
@@ -209,7 +209,7 @@ const healthPlanStyles = StyleSheet.create({
   },
 
   prescriptionContainer:{
-    marginTop: 80,
+    marginTop: 45,
     width: '95%',
   },
 
@@ -298,10 +298,14 @@ const healthPlanStyles = StyleSheet.create({
   },
 
   learnExerciseButton:{
-    transform: [{ translateX: 210 }, { translateY: 25}],
+    transform: [{ translateX: 210 }, { translateY: 32}],
     height: 40,
     width: 125,
     position: 'absolute'
+  },
+
+  exerciseHeading:{
+    marginTop: 10,
   },
 
   /*-----------------------Sub-Section: Outdoor -------------------------*/
