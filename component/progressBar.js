@@ -53,7 +53,7 @@ const ProgressBar = ({ progress = 0, goal = 1, taskName }) => {
     <View style={mainStyles.dailyContainer}>
       {/* Task Header */}
       <View style={dashboardStyles.taskHeader}>
-        <Text style={mainStyles.heading2}>{taskName}</Text>
+        <Text style={mainStyles.metricHeader}>{taskName}</Text>
         <Text style={[mainStyles.accompanyText, dashboardStyles.taskProgress]}>
           {clampedProgress} / {goal} {taskUnits[taskName] || ''}
         </Text>
